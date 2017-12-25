@@ -8,6 +8,8 @@ This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal b
 - I want a blog website that only consists of static webpages. This provides me with more options to host it. For instance, [GitHub Pages](https://pages.github.com/) certainly only supports static webpages. Thus, I cannot use any content management system (CMS) with dynamic pages, like [WordPress](https://wordpress.org/) and [Drupal](https://www.drupal.org/).
 - I want to use a Windows-based development machine. This means some programming languages like Ruby may be troublesome. Thus, I will not choose engines like [Jekyll](https://jekyllrb.com/).
 
+Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in the end.
+
 ## Licence
 
 [GNU General Public Licence 3.0](LICENSE)
