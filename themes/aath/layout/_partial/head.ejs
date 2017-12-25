@@ -1,24 +1,34 @@
+<%
+  var title = page.title;
+  if (is_archive()) {
+    title = 'Archive';
+  }
+  if (is_category()) {
+    title = page.category
+  }
+%>
 <head>
   <!-- Webpage title -->
-  <%
-    var title = page.title;
-    if (is_archive()) {
-      title = 'Archive';
-    }
-    if (is_category()) {
-      title = page.category
-    }
-  %>
   <title><% if (title) { %><%= title %> | <% } %><%= config.title %></title>
 
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- Character setting, icon setting and mobile compatibility. -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" sizes="128x128" href="<%- config.favicon %>">
+
+  <!-- Chrome mobile can use this to set background color. -->
+  <meta name="theme-color" content="#ededed">
+
+  <!-- Information for search engine -->
   <meta name="description" content="<%= config.description %>">
   <meta name="keywords" content="<%= config.keywords %>">
-  <% if (theme.favicon) { %>
-    <link rel="icon" href="<%- config.favicon %>">
-  <% } %>
+  <meta name="author" content="<%= config.author %>">
+
+  <!-- Compatibility for browsers older than IE9, which do not support HTML5 new features. -->
+  <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <![endif]-->
 
   <%- css('style') %>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
