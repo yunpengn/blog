@@ -12,7 +12,7 @@ Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in t
 
 ## Deployment
 
-_Notice: we are using [GitHub Pages](https://pages.github.com/) to deploy the website. For other deployment approaches, see the Hexo.js official [documentation](https://hexo.io/docs/deployment.html) for more information._
+_Notice: we are using [GitHub Pages](https://pages.github.com/) to deploy the website. For other deployment approaches, see the official [documentation](https://hexo.io/docs/deployment.html) for more information._
 
 If you have not deployed a Hexo.js project via a Git repository before, you need to install the following package:
 ```shell
@@ -37,6 +37,8 @@ hexo generate
 # Deploy the website
 hexo deploy
 ```
+
+You should have access to the Git repository for deployment.
 
 ## Licence
 
