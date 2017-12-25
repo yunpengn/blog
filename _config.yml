@@ -4,8 +4,8 @@
 
 # Site
 title: Yunpeng's Blog
-subtitle:
-description:
+subtitle: Niu Yunpeng's Blog
+description: Niu Yunpeng's Personal Blog Website
 author: Niu Yunpeng
 language: en
 timezone: Asia/Singapore
@@ -77,4 +77,7 @@ theme: landscape
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: 
+  branch: gh-pages
+  message: Update website at {{ now('YYYY-MM-DD HH:mm:ss') }}
