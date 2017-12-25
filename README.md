@@ -10,6 +10,27 @@ This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal b
 
 Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in the end.
 
+## Development Setup
+
+- Make sure you have installed [Node.js](https://nodejs.org/) and [Git](https://git-scm.com/) on your development machine.
+- Install [Hexo.js](https://hexo.io/) package (recommended using npm).
+```shell
+npm install hexo-cli -g
+```
+- Fork and clone this repository to your computer.
+```shell
+git clone git@github.com:yunpengn/blog.git
+```
+- Navigate to this directory.
+```shell
+cd blog
+```
+- Run the Hexo server to host the website locally.
+```shell
+hexo server
+```
+- Now, you can visit the website at `http://localhost:4000/`
+
 ## Deployment
 
 _Notice: we are using [GitHub Pages](https://pages.github.com/) to deploy the website. For other deployment approaches, see the official [documentation](https://hexo.io/docs/deployment.html) for more information._
