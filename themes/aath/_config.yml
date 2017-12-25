@@ -1,16 +1,15 @@
-
 # html lang
 language: en
 
 # main menu navigation
 menu:
-  首页: /
-  关于: /about
-  归档: /archives
-  标签: /tags
+  Home: /
+  About: /about
+  Archives: /archives
+  Tags: /tags
 
 # Miscelaneous
-favicon: /favicon.ico
+favicon: favicon.ico
 
 # stylesheets loaded in the <head>
 stylesheets:

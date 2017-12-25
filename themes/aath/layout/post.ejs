@@ -2,9 +2,9 @@
   <div class="content">
     <article>
         <section class="content markdown-body">
-          <h1><%= page.title ? page.title : '无标题' %></h1>
+          <h1><%= page.title ? page.title : 'No title' %></h1>
           <div class='post-meta'>
-            <i class="fa fa-calendar" aria-hidden="true"></i> <time><%-date(page.date, "YYYY年MM月DD日")%></time>
+            <i class="fa fa-calendar" aria-hidden="true"></i> <time><%-date(page.date, "DD MMM, YYYY")%></time>
             <% if(page.categories && page.categories.length) { %>
               | <i class="fa fa-folder-open-o" aria-hidden="true"></i> <%- partial('_partial/categories', { post: page }) %>
             <% } %>
@@ -21,26 +21,26 @@
         </section>
     </article>
     <% if(config['disqus_shortname']) { %>
-        <!-- disqus 评论框 start -->
+        <!-- disqus start -->
         <div class="comment">
             <div id="disqus_thread" class="disqus-thread">
-              <i>加载评论框需要翻墙</i>
+              <i>Govn firewall blocked</i>
             </div>
         </div>
-        <!-- disqus 评论框 end -->
+        <!-- disqus end -->
     <% } %>
     <% if(config['livere_uid']) { %>
-        <!-- livere 评论框 start -->
+        <!-- livere start -->
         <div class="comment">
             <div id="lv-container" data-id="city" data-uid="<%= config['livere_uid'] %>"></div>
         </div>
-        <!-- livere 评论框 end -->
+        <!-- livere end -->
     <% } %>    
   </div>
   <aside>
     <% if(toc(page.content)) { %>
     <div class="toc-container">
-        <h1>目录</h1>
+        <h1>Content</h1>
         <div class="content">
             <%- toc(page.content) %>
         </div>
@@ -49,7 +49,7 @@
   </aside>
 </main>
 <% if(config['disqus_shortname']) { %>
-<!-- disqus 公共JS代码 -->
+<!-- disqus JavaScript start -->
 <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES * * */
   var disqus_shortname = "<%= config['disqus_shortname'] %>";
@@ -87,7 +87,7 @@
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
   }
 </script>
-<!-- disqus 公共JS代码 end -->
+<!-- disqus JavaScript end -->
 <% } %>
 <% if (config['livere_uid']) { %>
 <script type="text/javascript">
