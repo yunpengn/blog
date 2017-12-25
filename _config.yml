@@ -78,6 +78,6 @@ theme: landscape
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: 
+  repo: git@github.com:yunpengn/blog.git
   branch: gh-pages
   message: Update website at {{ now('YYYY-MM-DD HH:mm:ss') }}
