@@ -61,6 +61,10 @@ hexo deploy
 
 You should have access to the Git repository for deployment.
 
+## Acknowledgements
+
+The theme used by this blog website benefits from [Aath](https://github.com/lewis-geek/hexo-theme-Aath). I would personally appreciate [Lewis](http://lewis.suclub.cn/)'s awesome work. 
+
 ## Licence
 
 [GNU General Public Licence 3.0](LICENSE)
