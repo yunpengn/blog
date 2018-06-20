@@ -14,7 +14,7 @@
     "hexo-generator-tag": "^0.2.0",
     "hexo-renderer-ejs": "^0.3.0",
     "hexo-renderer-marked": "^0.3.0",
-    "hexo-renderer-sass": "git+ssh://git@github.com/mamboer/hexo-renderer-scss.git",
+    "hexo-renderer-sass": "^0.3.2",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.2.0"
   }
