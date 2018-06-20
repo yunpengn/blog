@@ -4,13 +4,17 @@ This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal b
 
 ## Why I choose Hexo.js
 
-- I want a blog website that only consists of static webpages. Thus, I cannot use any content management system (CMS) with dynamic pages, like [WordPress](https://wordpress.org/) and [Drupal](https://www.drupal.org/). This provides me with more options to host it. For instance, [GitHub Pages](https://pages.github.com/) only supports static webpages.
+- I want a blog website that only consists of static webpages. Thus, I cannot use any content management system (CMS) with dynamic pages, like [WordPress](https://wordpress.org/) and [Drupal](https://www.drupal.org/).
+	- This provides me with more options to host it. For instance, [GitHub Pages](https://pages.github.com/) only supports static webpages.
+	- Static webpages are generally faster. They do not need any server-side pre-rendering.
 - It may be a waste of time to write raw HTML, CSS & JavaScript code for every page of the blog. Much of the code can be reused. Thus, I need a framework to help me generate the static webpages.
 - I want to develop in both Windows and Linux-based environment. This means some programming languages like Ruby may be troublesome. Thus, I will not choose engines like [Jekyll](https://jekyllrb.com/).
+- The body of my blog posts should not be in plain text. I need basic styling of the text. Also, I may insert code snippets to technical posts sometimes.
+	- Therefore, the framework had better support [Markdown](https://en.wikipedia.org/wiki/Markdown) and/or [AsciiDoc](http://www.methods.co.nz/asciidoc/).
 
 Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in the end.
 
-## Development Setup
+## Development
 
 - Make sure you have installed the latest version of [Node.js](https://nodejs.org/), [Npm](https://www.npmjs.com) and [Git](https://git-scm.com/) on your development machine. Npm should come with Node.js.
 	- You chould check them by `git --version`, `node -v` and `npm -v`.
@@ -35,6 +39,8 @@ npm install
 hexo server
 ```
 - Now, you can visit the website at `http://localhost:4000/blog/`
+
+## Writing
 
 ## Deployment
 
