@@ -4,17 +4,17 @@ This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal b
 
 ## Why I choose Hexo.js
 
-- The front-end styling should be reasonably consistent and polished. For a developer like me who is better at backend programming, it is difficult to start front-end design from scratch. Thus, I have to choose a framework, or a website generator.
-- I want a blog website that only consists of static webpages. This provides me with more options to host it. For instance, [GitHub Pages](https://pages.github.com/) certainly only supports static webpages. Thus, I cannot use any content management system (CMS) with dynamic pages, like [WordPress](https://wordpress.org/) and [Drupal](https://www.drupal.org/).
-- I want to use a Windows-based development machine. This means some programming languages like Ruby may be troublesome. Thus, I will not choose engines like [Jekyll](https://jekyllrb.com/).
+- I want a blog website that only consists of static webpages. Thus, I cannot use any content management system (CMS) with dynamic pages, like [WordPress](https://wordpress.org/) and [Drupal](https://www.drupal.org/). This provides me with more options to host it. For instance, [GitHub Pages](https://pages.github.com/) only supports static webpages.
+- It may be a waste of time to write raw HTML, CSS & JavaScript code for every page of the blog. Much of the code can be reused. Thus, I need a framework to help me generate the static webpages.
+- I want to develop in both Windows and Linux-based environment. This means some programming languages like Ruby may be troublesome. Thus, I will not choose engines like [Jekyll](https://jekyllrb.com/).
 
 Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in the end.
 
 ## Development Setup
 
-- Make sure you have installed [Node.js](https://nodejs.org/), [Npm]() and [Git](https://git-scm.com/) on your development machine. Npm should come with Node.js.
-	- You chould check by `git --version`, `node -v` and `npm -v`.
-- Install the command line interface of [Hexo.js](https://hexo.io/) (recommended using npm).
+- Make sure you have installed the latest version of [Node.js](https://nodejs.org/), [Npm](https://www.npmjs.com) and [Git](https://git-scm.com/) on your development machine. Npm should come with Node.js.
+	- You chould check them by `git --version`, `node -v` and `npm -v`.
+- Install the command line interface of [Hexo.js](https://hexo.io/).
 ```bash
 npm install hexo-cli -g
 ```
@@ -38,7 +38,7 @@ hexo server
 
 ## Deployment
 
-_Notice: we are using [GitHub Pages](https://pages.github.com/) to deploy the website. For other deployment approaches, see the official [documentation](https://hexo.io/docs/deployment.html) for more information._
+_Notice: [Hexo.js](https://hexo.io/) supports many different deployment approaches. We are using [GitHub Pages](https://pages.github.com/) currently. For other deployment approaches, see the official [documentation](https://hexo.io/docs/deployment.html) for more information._
 
 - Make sure you have declared the required dependency in `package.json`. For instance, if you need to deploy to a Git repository, run the following command
 ```shell
