@@ -12,35 +12,39 @@ Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in t
 
 ## Development Setup
 
-- Make sure you have installed [Node.js](https://nodejs.org/) and [Git](https://git-scm.com/) on your development machine.
-- Install [Hexo.js](https://hexo.io/) package (recommended using npm).
-```shell
+- Make sure you have installed [Node.js](https://nodejs.org/), [Npm]() and [Git](https://git-scm.com/) on your development machine. Npm should come with Node.js.
+	- You chould check by `git --version`, `node -v` and `npm -v`.
+- Install the command line interface of [Hexo.js](https://hexo.io/) (recommended using npm).
+```bash
 npm install hexo-cli -g
 ```
 - Fork and clone this repository to your computer.
-```shell
+```bash
 git clone git@github.com:yunpengn/blog.git
 ```
 - Navigate to this directory.
-```shell
+```bash
 cd blog
 ```
+- Install all the dependencies stated in `package.json` (or `package-lock.json`).
+```bash
+npm install
+```
 - Run the Hexo server to host the website locally.
-```shell
+```bash
 hexo server
 ```
-- Now, you can visit the website at `http://localhost:4000/`
+- Now, you can visit the website at `http://localhost:4000/blog/`
 
 ## Deployment
 
 _Notice: we are using [GitHub Pages](https://pages.github.com/) to deploy the website. For other deployment approaches, see the official [documentation](https://hexo.io/docs/deployment.html) for more information._
 
-If you have not deployed a Hexo.js project via a Git repository before, you need to install the following package:
+- Make sure you have declared the required dependency in `package.json`. For instance, if you need to deploy to a Git repository, run the following command
 ```shell
 npm install hexo-deployer-git --save
 ```
-
-After that, change the settings in `_config.yml` as follows:
+- Check the settings in `_config.yml` is correct:
 ```yaml
 deploy:
   type: git
@@ -48,8 +52,7 @@ deploy:
   branch: <The branch for deployment>
   message: <The commit message>
 ```
-
-In the end, run the following commands and Hexo.js will help you deploy the website automatically:
+- Deploy the website by running the following commands:
 ```shell
 # Clean the database and the public folder
 hexo clean
@@ -58,8 +61,7 @@ hexo generate
 # Deploy the website
 hexo deploy
 ```
-
-You should have access to the Git repository for deployment.
+- _Notice: You should have access to the Git repository for deployment._
 
 ## Acknowledgements
 
