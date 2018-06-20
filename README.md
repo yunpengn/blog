@@ -42,6 +42,24 @@ hexo server
 
 ## Writing
 
+- Run the following command to create a new post
+	- Surround `<title>` with quotation marks if there exists whitespaces.
+```bash
+hexo new <title>
+```
+- Run the following command to create a draft
+```bash
+hexo new draft <title>
+```
+- Run the following command to transform a draft into a post
+```bash
+hexo publish <title>
+```
+- If you have customize layout under the `scaffolds` folder, you can apply it by
+```bash
+hexo new <layout> <title>
+```
+
 ## Deployment
 
 _Notice: [Hexo.js](https://hexo.io/) supports many different deployment approaches. We are using [GitHub Pages](https://pages.github.com/) currently. For other deployment approaches, see the official [documentation](https://hexo.io/docs/deployment.html) for more information._
