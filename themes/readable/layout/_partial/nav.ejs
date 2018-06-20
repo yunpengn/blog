@@ -18,12 +18,8 @@
       <!-- Decide to pull the links to the right. -->
       <ul class="nav navbar-nav navbar-right">
         <% for(name in theme.menu) { %>
-          <li class="nav-item">
-            <% if (url_for(theme.menu[name]) == '/' + path.replace('/index.html', '') || (url_for(theme.menu[name]) == '/' && is_home())) { %>
-              <a href="<%- url_for(theme.menu[name]) %>" class="item-link active"><%- name %></a>
-            <% } else { %>
-              <a href="<%- url_for(theme.menu[name]) %>" class="item-link"><%- name %></a>
-            <% } %>
+         <li <% if (url_for(theme.menu[name]) == url_for(page.path).replace('index.html', '')) { %> class="active" <% } %>>
+            <a href="<%- url_for(theme.menu[name]) %>"><%- name %></a>
           </li>
         <% } %>
       </ul>
