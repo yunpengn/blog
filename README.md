@@ -39,6 +39,8 @@ npm install
 hexo server
 ```
 - Now, you can visit the website at `http://localhost:4000/blog/`
+- Hexo will watch for file changes and update automatically, so it’s not necessary to manually restart the server.
+	- Use `hexo server -s` to serve from `public` folder and disable file watching.
 
 ## Writing
 
