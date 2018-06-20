@@ -41,7 +41,7 @@ hexo server
 _Notice: [Hexo.js](https://hexo.io/) supports many different deployment approaches. We are using [GitHub Pages](https://pages.github.com/) currently. For other deployment approaches, see the official [documentation](https://hexo.io/docs/deployment.html) for more information._
 
 - Make sure you have declared the required dependency in `package.json`. For instance, if you need to deploy to a Git repository, run the following command
-```shell
+```bash
 npm install hexo-deployer-git --save
 ```
 - Check the settings in `_config.yml` is correct:
@@ -53,7 +53,7 @@ deploy:
   message: <The commit message>
 ```
 - Deploy the website by running the following commands:
-```shell
+```bash
 # Clean the database and the public folder
 hexo clean
 # Generate all the static webpages
