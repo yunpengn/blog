@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Install all dependencies
+npm install
+
 # Switch back to the local master branch
 git checkout master
 echo "Check out to the master branch on local."

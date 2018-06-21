@@ -4,8 +4,8 @@
 
 # Site
 title: Yunpeng's Blog
-subtitle: Niu Yunpeng's Blog
-description: Niu Yunpeng's Personal Blog Website
+subtitle: Life, coding and everything
+description: The world never stops for you.
 keywords: Niu,Yunpeng,NUS,CS,Software,Developer
 author: Niu Yunpeng
 language: en
@@ -43,7 +43,7 @@ highlight:
   line_number: true
   auto_detect: false
   tab_replace:
-  
+
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
@@ -52,7 +52,7 @@ index_generator:
   path: ''
   per_page: 10
   order_by: -date
-  
+
 # Category & Tag
 default_category: uncategorized
 category_map:
@@ -73,7 +73,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: aath
+theme: next
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -82,3 +82,14 @@ deploy:
   repo: git@github.com:yunpengn/blog.git
   branch: gh-pages
   message: Update website at {{ now('YYYY-MM-DD HH:mm:ss') }}
+
+# RSS Feed
+## Docs: https://github.com/hexojs/hexo-generator-feed
+feed:
+  type: atom
+  path: atom.xml
+  limit: 20
+  hub:
+  content:
+  content_limit: 200
+  content_limit_delim: ' '
