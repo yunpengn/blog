@@ -1,5 +1,8 @@
 @ECHO OFF
 
+rem Install all dependencies
+npm install
+
 rem Switch back to the local master branch
 git checkout master
 echo Check out to the master branch on local.
