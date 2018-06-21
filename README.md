@@ -24,7 +24,7 @@ npm install hexo-cli -g
 ```
 - Fork and clone this repository to your computer.
 ```bash
-git clone git@github.com:yunpengn/blog.git
+git clone --recurse-submodules git@github.com:yunpengn/blog.git
 ```
 - Navigate to this directory.
 ```bash
