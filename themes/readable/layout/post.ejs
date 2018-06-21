@@ -1,5 +1,6 @@
 <main id='post'>
   <div class="content">
+    <!-- Main body of the post. -->
     <article>
         <section class="content markdown-body">
           <h1><%= page.title ? page.title : __('untitled') %></h1>
@@ -20,27 +21,27 @@
           <%- page.content %>
         </section>
     </article>
+
+    <!-- (Optional) disqus comment area -->
     <% if(config['disqus_shortname']) { %>
-        <!-- disqus 评论框 start -->
         <div class="comment">
             <div id="disqus_thread" class="disqus-thread">
               <i><%= __('over_the_wall') %></i>
             </div>
         </div>
-        <!-- disqus 评论框 end -->
     <% } %>
+    <!-- (Optional) livere comment area -->
     <% if(config['livere_uid']) { %>
-        <!-- livere 评论框 start -->
         <div class="comment">
             <div id="lv-container" data-id="city" data-uid="<%= config['livere_uid'] %>"></div>
         </div>
-        <!-- livere 评论框 end -->
-    <% } %>    
+    <% } %>
   </div>
+
   <aside>
-    <% if(toc(page.content)) { %>
+    <% if (toc(page.content)) { %>
     <div class="toc-container">
-        <h1>目录</h1>
+        <h1>Table of Contents</h1>
         <div class="content">
             <%- toc(page.content) %>
         </div>
@@ -48,8 +49,8 @@
     <% } %>
   </aside>
 </main>
+
 <% if(config['disqus_shortname']) { %>
-<!-- disqus 公共JS代码 -->
 <script type="text/javascript">
   /* * * CONFIGURATION VARIABLES * * */
   var disqus_shortname = "<%= config['disqus_shortname'] %>";
@@ -81,14 +82,14 @@
   }
 
   function getDisqus(isAgent) {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; 
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript';
     dsq.async = true
     dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq)
   }
 </script>
-<!-- disqus 公共JS代码 end -->
 <% } %>
+
 <% if (config['livere_uid']) { %>
 <script type="text/javascript">
   (function(d, s) {
