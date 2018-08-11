@@ -1,0 +1,5 @@
+# Netlify configuration to deploy site
+
+[build]
+  publish = "public"
+  command = "git submodule init && git submodule update && hexo clean && hexo generate"
