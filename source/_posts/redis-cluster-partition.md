@@ -46,3 +46,9 @@ Let's say you have 4000 keys in your key-value store (_certainly, 4000 is a too 
 Now, the problem comes. The new node is empty. How should we move some data into the new node? Ideally, we want to remap only `K/n` keys on average, where `K` is the total number of keys and `n` is the number of nodes. This is where [consistent hashing](https://en.wikipedia.org/wiki/Consistent_hashing) comes into play.
 
 However, the “hash-slot” approach is again different from the traditional **consistent hashing** approach.
+
+## References
+
+- [Redis Cluster Tutorial](https://redis.io/topics/cluster-tutorial)
+- [Redis Cluster Specification](https://redis.io/topics/cluster-spec)
+- [Redis Cluster Presentation](https://redis.io/presentation/Redis_Cluster.pdf)
