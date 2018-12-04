@@ -1,3 +1,5 @@
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=yunpengn/blog)](https://dependabot.com)
+
 # Yunpeng's Blog
 
 This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal blog website. It is proudly powered by [Hexo.js](https://hexo.io/).
