@@ -16,6 +16,7 @@ As you may already know, this blog is built using [Hexo.js](https://hexo.io) wit
 - The body of my blog posts should not be in plain text. I need basic styling of the text. Also, I may insert code snippets to technical posts sometimes.
 	- Therefore, the framework had better support [Markdown](https://en.wikipedia.org/wiki/Markdown) and/or [AsciiDoc](http://www.methods.co.nz/asciidoc/).
 	- I know how to use [LaTeX](https://www.latex-project.org). My slides for my CS1101S classes are all typed in Latex with [Beamer](https://ctan.org/pkg/beamer) package. However, although LaTeX is very powerful, I have to say its syntax is way too complex.
+		- In fact, the [Next](https://github.com/theme-next/hexo-theme-next) theme also supports math equation rendering by either [MathJax](https://www.mathjax.org) or [Katex](https://katex.org).
 
 Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in the end.
 
