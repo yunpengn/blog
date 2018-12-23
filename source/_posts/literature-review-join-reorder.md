@@ -4,7 +4,7 @@ date: 2018-12-22 16:24:11
 categories: Technical
 ---
 
-Recently, I was looking at some research papers on the join reorderability. To start with, let's understand what do we mean by "_join reorderability_" and why it is important.
+Recently, I was looking at some research papers on the join reorderability. To start with, let's understand what do we mean by _"join reorderability"_ and why it is important.
 
 ## Background Knowledge
 
@@ -28,10 +28,42 @@ Up to now, hopefully the topic has become much clearer to you. In _join reordera
 
 ## Recent Researches
 
-As follows, I summarize some recent researches on this topic and give my _naive_ literature reviews.
+As follows, I summarize some recent researches on this topic and give my _naive_ literature reviews on them.
+
+### Moerkotte, G., Fender, P., & Eich, M. (2013). On the correct and complete enumeration of the core search space. doi:10.1145/2463676.2465314
+
+This paper begins by pointing out two major approaches (bottom-up dynamic programming & top-down memoization) to find optimal join order requires the considered search space to be valid. In other words, this probably only works when we consider inner joins only. Such algorithms could not work on outerjoins, antijoins, semijoins, groupjoins, etc.
+
+To (partially) solve this problem, this paper presents 3 _conflict detectors_, `CD-A`, `CD-B` & `CD-C` (all correct, but only `CD-C` is also complete). It also shows 2 approaches (NEL/EEL & SES/TES) proposed in previous researches are buggy. The authors also propose a desired conflict detector to have the following properties:
+
+- correct: no invalid plans will be included;
+- complete: all valid plans will be generated;
+- easy to understand and implement;
+- flexible:
+	- _null-tolerant:_ the predicates are not required to reject nulls (opposite to _null-intolerant_);
+	- _complex:_ the predicates could reference more than 2 relations;
+- extensible: extend the set of binary operators considered _(by a table-driven approach)_.
+
+Then, the paper introduces the **"core search space"**, all valid ordering defined by a set of transformation rules. Notice that based on commutativity and assocativitity, the left & right asscom property is also proposed. A "conflict" means application of such transformations _(4 kinds of transformations based on 4 properties: commutativity, associativity, l-asscom & r-asscom)_ will result in an invalid plan. "Conflict detector" basically tries to find out such "conflict"s.
+
+If a predicate contained in binary operators do not reference tables from both operands, it is called a _degenerate predicate_. It is observed that for _non-degenerate predicate_:
+
+- For left nesting tree: can apply either associativity or l-asscom (but not both); and
+- For right nesting tree: can apply either associativity or r-asscom (but not both).
+
+This observation in fact makes our life much easier. For either left or right nesting tree, we only need to consider one kind of transformation (rather than two kinds). We can further observe we usually at most need to apply commutativity _once_ to each operator. We probably only need to apply associativity, l-asscom, or r-asscom less than once per operator as well. From this, we can infer that it is possible to create an algorithm to iterate through the whole search space in finite steps. Thereafter, the authors proposed an algorithm that extends the classical dynamic programming algorithm, as shown below.
+
+{% img /images/join_order_dp_algo.png 360 "Pseudocode for DP algorithm" %}
+
+Notice that the procedure above calls a sub-procedure `Applicable`, which tests whether a certain operator is applicable. Talking about "reorderability", the rest would discuss how to implement this sub-procedure `Applicable`.
+
+### Rao, J., Pirahesh, H., & Zuzarte, C. (2004). Canonical abstraction for outerjoin optimization. doi:10.1145/1007568.1007643
+
+something here
 
 ## References
 
+- [Cost Based Transformation](https://slideplayer.com/slide/7520334/)
 - [NUS CS3223 Lecture Notes - Relational Operators](https://www.comp.nus.edu.sg/~tankl/cs3223/slides/opr.pdf)
 - [NUS CS3223 Lecture Notes - Query Optimizer](https://www.comp.nus.edu.sg/~tankl/cs3223/slides/opt.pdf)
 - [Optimizing Join Orders](http://www.benjaminnevarez.com/2010/06/optimizing-join-orders/)
