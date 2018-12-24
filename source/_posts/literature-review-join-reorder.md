@@ -57,9 +57,84 @@ This observation in fact makes our life much easier. For either left or right ne
 
 Notice that the procedure above calls a sub-procedure `Applicable`, which tests whether a certain operator is applicable. Talking about "reorderability", the rest would discuss how to implement this sub-procedure `Applicable`.
 
+We introduce a few terms: syntactic eligibility sets (SES), total eligibility sets (TES). When commutativity does not hold, we want to prevent operators from both sides to communicate with each other. Thus, we further define L-TES and R-TES. By merging tables from either left or right operand, we can eliminate those invalid plans depending on whether l-asscom or r-asscom holds. This introduces the `CD-A` algorithm, as shown below.
+
+{% img /images/join_order_CD_A.png 300 "Pseudocode for CD A" %}
+
+By introducing some _conflict rules_ (CRs), `CD-B` is proposed as follows.
+
+{% img /images/join_order_CD_B.png 300 "Pseudocode for CD B" %}
+
+`CD-C` only improves the CRs.
+
 ### Rao, J., Pirahesh, H., & Zuzarte, C. (2004). Canonical abstraction for outerjoin optimization. doi:10.1145/1007568.1007643
 
-something here
+R (k, a, b, c)		S (k, a, b)		T (k, a, c)
+   r, 1, 1, 1		   s, 1, 1			NULL
+
+Q1:
+1)
+```sql
+S INNER JOIN T ON S.a = T.a
+```
+will result in
+	NULL
+2)
+```sql
+R LEFT JOIN (1) ON R.b = S.b AND R.c = S.c
+```
+will result in
+(k, a, b, c, k, a, b, k, a, c)
+ r, 1, 1, 1, 1, null, null, null, null, null, null
+
+Q1 re-ordered:
+1)
+```sql
+R LEFT JOIN S ON R.b = S.b
+```
+will result in
+(k, a, b, c, k, a, b)
+ r, 1, 1, 1, s, 1, 1
+2)
+```sql
+(1) INNER JOIN T S.a = T.a AND R.c = T.c
+```
+will result in
+	NULL
+
+
+Q2:
+1)
+```sql
+S LEFT JOIN JOIN T ON S.a = T.a
+```
+will result in
+(k, a, b, k, a, c)
+ s, 1, 1, null, null, null
+2)
+```sql
+R LEFT JOIN (1) ON R.a = S.a
+```
+will result in
+(k, a, b, c, k, a, b, k, a, c)
+ r, 1, 1, 1, 1, s, 1, 1, null, null, null
+
+Q2 re-ordered:
+1)
+```sql
+R LEFT JOIN JOIN T ON R.a = T.a
+```
+will result in
+(k, a, b, k, a, c)
+ s, 1, 1, null, null, null
+2)
+```sql
+(1) LEFT JOIN S ON R.a = S.a and T.a = S.a
+```
+(k, a, b, c, k, a, b, k, a, c)
+ null, null, null, null, s, 1, 1, null, null, null
+
+> Thus, we can see that the re-ordering of both R1 and R2 are invalid.
 
 ## References
 
