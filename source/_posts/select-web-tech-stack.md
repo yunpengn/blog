@@ -40,5 +40,5 @@ Let's first decide which interface-design approach to select:
 
 Then, we will decide the UI element library to build beautiful interfaces:
 - **[Bootstrap](https://getbootstrap.com) _(current choice)_**: the most popular CSS+JavaScript mobile-first library in the world. It can also be taken to the next level by using themes, such as those provided by [Bootswatch](https://bootswatch.com). To integrate it with [Vue.js](https://vuejs.org), we can use [Bootstrap Vue](https://bootstrap-vue.js.org).
-- **[Ant Design](https://ant.design/)**: many polished and usable components. It is maintained by [Alibaba Group](https://www.alibabagroup.com/), a Chinese multinational technology corporation.
+- **[Ant Design](https://ant.design/)**: many polished and usable components for React.js. It is maintained by [Ant Financial](https://www.antfin.com) from [Alibaba Group](https://www.alibabagroup.com/), a Chinese multinational technology corporation.
 - **[Element UI](http://element.eleme.io/)**: tuned for Vue.js by [Eleme](https://www.ele.me), a Chinese technial company, whose primary service is online food delivery. Its documentation is not as nice as others.

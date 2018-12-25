@@ -22,7 +22,7 @@ For a join on `n` tables, there could be `n!` left-deep trees and `n!` right-dee
 
 As illustrated in the last section, we have developed algorithms to find the optimal join order of queries. However, we could meet problems when we try to apply such algorithms on outer joins & anti-joins. This is because such joins do not have the same nice properties of commutativity and assocativitity associativity as inner joins.
 
-Further, this means our algorithms cannot safely search on the entire space to find an optimal order _(i.e. a significant subset of the search space is invalid)_. Such dilemma puts us into two questions: 1) which part of hte search space is valid? 2) what can we do with the invalid part of the search space?
+Further, this means our algorithms cannot safely search on the entire space to find an optimal order _(i.e. a significant subset of the search space is invalid)_. Such dilemma puts us into two questions: 1) which part of the search space is valid? 2) what can we do with the invalid part of the search space?
 
 Up to now, hopefully the topic has become much clearer to you. In _join reorderability_, we are trying to figure out "the ability to manipulate the join query to a certain join order".
 
@@ -51,7 +51,13 @@ If a predicate contained in binary operators do not reference tables from both o
 - For left nesting tree: can apply either associativity or l-asscom (but not both); and
 - For right nesting tree: can apply either associativity or r-asscom (but not both).
 
-This observation in fact makes our life much easier. For either left or right nesting tree, we only need to consider one kind of transformation (rather than two kinds). We can further observe we usually at most need to apply commutativity _once_ to each operator. We probably only need to apply associativity, l-asscom, or r-asscom less than once per operator as well. From this, we can infer that it is possible to create an algorithm to iterate through the whole search space in finite steps. Thereafter, the authors proposed an algorithm that extends the classical dynamic programming algorithm, as shown below.
+{% img /images/join_order_asscom.png 300 "3 basic properties" %}
+
+This observation in fact makes our life much easier. For either left or right nesting tree, we only need to consider one kind of transformation (rather than two kinds). We can further observe we usually at most need to apply commutativity _once_ to each operator. We probably only need to apply associativity, l-asscom, or r-asscom less than once per operator as well. All valid & invalid transformations based on the 3 above properties are summarized in the following tables.
+
+{% img /images/join_order_TBA.png 450 "Valid & invalid transformations" %}
+
+From this, we can infer that it is possible to create an algorithm to iterate through the whole search space in finite steps. Thereafter, the authors proposed an algorithm that extends the classical dynamic programming algorithm, as shown below.
 
 {% img /images/join_order_dp_algo.png 360 "Pseudocode for DP algorithm" %}
 
@@ -67,74 +73,123 @@ By introducing some _conflict rules_ (CRs), `CD-B` is proposed as follows.
 
 `CD-C` only improves the CRs.
 
+{% img /images/join_order_CD_C.png 300 "Pseudocode for CD C" %}
+
 ### Rao, J., Pirahesh, H., & Zuzarte, C. (2004). Canonical abstraction for outerjoin optimization. doi:10.1145/1007568.1007643
 
-R (k, a, b, c)		S (k, a, b)		T (k, a, c)
-   r, 1, 1, 1		   s, 1, 1			NULL
+Similar to the previous paper, this paper also recognizes the difficulties in optimizing outerjoins due to the lack of commutativity and assocativitity. The authors believe that a canonical representation of inner joins would be `the Cartesian products of all relations, followed by a sequence of selection operations, each applying a conjunct in the join predicates`. So can we find a canonical abstraction for outerjoins as well? This outlines the objective of this work.
 
-Q1:
+The two examples below goes with the following 3 tables, `R`, `T` and `S`.
+
+|Table R| k | a | b | c |
+|:-----:|:-:|:-:|:-:|:-:|
+|       | r | 1 | 1 | 1 |
+
+|Table S| k | a | b |
+|:-----:|:-:|:-:|:-:|
+|       | s | 1 | 1 |
+
+|Table T| k | a | c |
+|:-----:|:-:|:-:|:-:|
+|  N/A  | - | - | - |
+
+#### Example 1
+
 1)
 ```sql
 S INNER JOIN T ON S.a = T.a
 ```
-will result in
-	NULL
+will result in empty data.
+
 2)
 ```sql
 R LEFT JOIN (1) ON R.b = S.b AND R.c = S.c
 ```
 will result in
-(k, a, b, c, k, a, b, k, a, c)
- r, 1, 1, 1, 1, null, null, null, null, null, null
 
-Q1 re-ordered:
+| k | a | b | c | k | a | b | k | a | c |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| r | 1 | 1 | 1 | - | - | - | - | - | - |
+
+#### Example 1 reordered
+
 1)
 ```sql
 R LEFT JOIN S ON R.b = S.b
 ```
 will result in
-(k, a, b, c, k, a, b)
- r, 1, 1, 1, s, 1, 1
+
+| k | a | b | c | k | a | b |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| r | 1 | 1 | 1 | s | 1 | 1 |
+
 2)
 ```sql
 (1) INNER JOIN T S.a = T.a AND R.c = T.c
 ```
-will result in
-	NULL
+will result in empty data.
 
+#### Example 2
 
-Q2:
 1)
 ```sql
 S LEFT JOIN JOIN T ON S.a = T.a
 ```
 will result in
-(k, a, b, k, a, c)
- s, 1, 1, null, null, null
+
+| k | a | b | k | a | c |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| s | 1 | 1 | - | - | - |
+
 2)
 ```sql
 R LEFT JOIN (1) ON R.a = S.a
 ```
 will result in
-(k, a, b, c, k, a, b, k, a, c)
- r, 1, 1, 1, 1, s, 1, 1, null, null, null
 
-Q2 re-ordered:
+| k | a | b | c | k | a | b | k | a | c |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| r | 1 | 1 | 1 | s | 1 | 1 | - | - | - |
+
+#### Example 2 reordered
+
 1)
 ```sql
 R LEFT JOIN JOIN T ON R.a = T.a
 ```
 will result in
-(k, a, b, k, a, c)
- s, 1, 1, null, null, null
+
+| k | a | b | k | a | c |
+|:-:|:-:|:-:|:-:|:-:|:-:|
+| s | 1 | 1 | - | - | - |
+
 2)
 ```sql
 (1) LEFT JOIN S ON R.a = S.a and T.a = S.a
 ```
-(k, a, b, c, k, a, b, k, a, c)
- null, null, null, null, s, 1, 1, null, null, null
+will result in
+
+| k | a | b | c | k | a | b | k | a | c |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| - | - | - | - | s | 1 | 1 | - | - | - |
 
 > Thus, we can see that the re-ordering of both R1 and R2 are invalid.
+
+To solve the problem, this paper proposes a canonical abstraction for queries involving both inner and outer joins by 3 operators: _outer Cartesian products_ × (conventional Cartesian products + if either operand is empty, perform an outer join so that the other side is fully preserved), _nullification_ 𝞴 (for rows that don't satisfy the nullification predicate `P`,  set their nullified attributes `a` to `null`) and _best match_ 𝞫 (a filter for rows in a table such that only those which are not dominated by other rows, and also not all-null themselves are left). Notice that such canonical abstraction would maintain both commutativity and transitivity, after which makes it much easier to find the optimal plan. This abstraction for left outerjoin and inner join is shown as follows.
+
+{% img /images/join_order_canonical_abstraction.png 350 "Canonical abstraction for inner join and left outer join" %}
+
+We can easily understand the rationale behind the relation above (we call this representation _"bestmatch-nullification representation"_, shortened as `BNR`). Let's take the left outerjoin for an example. In a left outerjoin, the left operand is the _preserving side_ while the right operand is the _null-producing side_. Thus, we have to nullify the right operand `S` with the predicate `P` (similarly, in an inner join, we need to nullify both operands). To prevent the results from containing spurious tuples, we further apply the best match operator. The image below summarizes some commutative rules for the two compensation operators.
+
+{% img /images/join_order_compensation_commutative.png 350 "Commutative rules for compensation operators" %}
+
+Notice that although the nullification operator is not interchangable (commutativity), we can add another nullification operator to short-circuit the ripple effect and fix this.
+
+### TaiNing, W., & Chee-Yong, Chan. (2018). Improving Join Reorderability with Compensation Operators. doi:10.1145/3183713.3183731
+
+This recent work extends the paper in 2004 by following a similar compensation-based approach (CBA) to solve the join reordering problem. In a simple query, all outerjoin predicates have only one conjunct, must be binary predicate referring to only 2 tables, no Cartesian product, and all predicates are null-intolerant. This paper also provides complete join reorderability for single-sided outerjoin, antijoins. For full outerjoin, the approach in this paper is better than previous work.
+
+To formalize the notion of complete join reorderability, the join order is modelled as an unordered binary tree, with leaf nodes as the relations and internal nodes as the predicates & join operators. In this definition, the join ordering focuses on the order of all operands rather than the specific join operators used. In other words, to achieve a certain join order, we could possibly change the join operators used. Given a query class `C` and a set of compensation operators `O`, `C` is completely reorderable with respect to `O` if `O` can help every query `Q` in `C` to reorder to every possible order in `JoinOrder(Q)`.
 
 ## References
 
