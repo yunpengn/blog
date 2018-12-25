@@ -189,7 +189,24 @@ Notice that although the nullification operator is not interchangable (commutati
 
 This recent work extends the paper in 2004 by following a similar compensation-based approach (CBA) to solve the join reordering problem. In a simple query, all outerjoin predicates have only one conjunct, must be binary predicate referring to only 2 tables, no Cartesian product, and all predicates are null-intolerant. This paper also provides complete join reorderability for single-sided outerjoin, antijoins. For full outerjoin, the approach in this paper is better than previous work.
 
-To formalize the notion of complete join reorderability, the join order is modelled as an unordered binary tree, with leaf nodes as the relations and internal nodes as the predicates & join operators. In this definition, the join ordering focuses on the order of all operands rather than the specific join operators used. In other words, to achieve a certain join order, we could possibly change the join operators used. Given a query class `C` and a set of compensation operators `O`, `C` is completely reorderable with respect to `O` if `O` can help every query `Q` in `C` to reorder to every possible order in `JoinOrder(Q)`.
+To formalize the notion of complete join reorderability, the join order is modelled as an unordered binary tree, with leaf nodes as the relations and internal nodes as the predicates & join operators. In this definition, the join ordering focuses on the order of all operands rather than the specific join operators used. In other words, to achieve a certain join order, we could possibly change the join operators used. Given a query class `C` and a set of compensation operators `O`, `C` is completely reorderable with respect to `O` if `O` can help every query `Q` in `C` to reorder to every possible order in `JoinOrder(Q)`. Thus, this paper further purposes an Enhanced Compensation-based Approach (ECA), to enable reordering support for antijoins (by adding 2 more compensation operators). Specifically, antijoins are rewritten in the following way.
+
+{% img /images/join_order_antijoin.png 300 "Rewriting rule for antijoins" %}
+
+The above rule makes sense since the gamme operator basically removes those rows in `R1` which could otherwise join with some row(s) from `R2` (notice that a left antijoin basically means `R1` - `R1` left semijoin `R2`; and left semijoin means a projection to only include left operand attributes after a natural join). This two-step approach enables the pruning step to be postponed. The design of ECA has 4 desirable factors:
+
+- The operators must be able to maximize the join reorderability;
+- An efficient query plan enumeration algorithm;
+- The number of compensation operators should be small;
+- There exists efficient implementation to each compensation operator (both SQL level and system native level).
+
+This paper introduces two new operators 𝞬 and 𝞬* . The first operator 𝞬 removes all tuples where the projection of a certain subset of attributes `A` is not null. The second operator 𝞬* modifies those tuples not selected by first operator by setting their attributes (excluding those in the subset of attributes to `B`) and then merge the two parts together. These two operators could be interchanged with conventional join operators as shown in the table below.
+
+{% img /images/join_order_gamma.png 700 "The 2 new compensation operators" %}
+
+The above properties in fact lead to more rewriting rules as compared to the original CBA approach. The rules are shown in the table as follows.
+
+{% img /images/join_order_ECA_rules.png 600 "The rewriting rules for ECA approach" %}
 
 ## References
 
