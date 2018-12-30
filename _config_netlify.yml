@@ -13,8 +13,8 @@ timezone: Asia/Singapore
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://yunpengn.github.io/
-root: /blog/
+url: https://yunpengn-blog.netlify.com/
+root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 
@@ -74,14 +74,6 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
 theme: next
-
-# Deployment
-## Docs: https://hexo.io/docs/deployment.html
-deploy:
-  type: git
-  repo: git@github.com:yunpengn/blog.git
-  branch: gh-pages
-  message: Update website at {{ now('YYYY-MM-DD HH:mm:ss') }}
 
 # RSS Feed
 ## Docs: https://github.com/hexojs/hexo-generator-feed
