@@ -2,19 +2,10 @@
 
 # Yunpeng's Blog
 
-This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal blog website. It is proudly powered by [Hexo.js](https://hexo.io/).
+This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal blog website. It is proudly powered by [Hexo.js](https://hexo.io/). In a previous [blog](https://yunpengn.github.io/blog/2018/04/11/blog-with-hexo/), I shared the reasons why I chose to blog with Hexo.js.
 
-## Why I choose Hexo.js
-
-- I want a blog website that only consists of static webpages. Thus, I cannot use any content management system (CMS) with dynamic pages, like [WordPress](https://wordpress.org/) and [Drupal](https://www.drupal.org/).
-	- This provides me with more options to host it. For instance, [GitHub Pages](https://pages.github.com/) only supports static webpages.
-	- Static webpages are generally faster. They do not need any server-side pre-rendering.
-- It may be a waste of time to write raw HTML, CSS & JavaScript code for every page of the blog. Much of the code can be reused. Thus, I need a framework to help me generate the static webpages.
-- I want to develop in both Windows and Linux-based environment. This means some programming languages like Ruby may be troublesome. Thus, I will not choose engines like [Jekyll](https://jekyllrb.com/).
-- The body of my blog posts should not be in plain text. I need basic styling of the text. Also, I may insert code snippets to technical posts sometimes.
-	- Therefore, the framework had better support [Markdown](https://en.wikipedia.org/wiki/Markdown) and/or [AsciiDoc](http://www.methods.co.nz/asciidoc/).
-
-Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in the end.
+- Production Site: [https://yunpengn.github.io/blog/](https://yunpengn.github.io/blog/)
+- Staging Site: [https://yunpengn-blog.netlify.com/](https://yunpengn-blog.netlify.com/)
 
 ## Development
 
@@ -66,13 +57,14 @@ hexo new <layout> <title>
 
 ## Deployment
 
-_Notice: [Hexo.js](https://hexo.io/) supports many different deployment approaches. We are using [GitHub Pages](https://pages.github.com/) currently. For other deployment approaches, see the official [documentation](https://hexo.io/docs/deployment.html) for more information._
+Currently, this blog is being deployed to two environments concurrently, [production site](https://yunpengn.github.io/blog/) on [GitHub Pages](https://pages.github.com/), as well as [staging site](https://yunpengn-blog.netlify.com/) on [Netlify](https://www.netlify.com). The details for these two environments are described as follows respectively.
 
-- Make sure you have declared the required dependency in `package.json`. For instance, if you need to deploy to a Git repository, run the following command
-```bash
-npm install hexo-deployer-git --save
-```
-- Check the settings in `_config.yml` is correct:
+### Production deployment
+
+We use the [Git deployer plugin](https://github.com/hexojs/hexo-deployer-git) for Hexo to deploy the site to the [`gh-pages` branch](https://github.com/yunpengn/blog/tree/gh-pages), which is then picked up by GitHub Pages automatically.
+
+- You should have followed the [section above](#development) to set up the local development environment.
+- Check the settings in `_config.yml` is correct (see Hexo's [documentation](https://hexo.io/docs/deployment#Git) for more details):
 ```yaml
 deploy:
   type: git
@@ -80,16 +72,13 @@ deploy:
   branch: <The branch for deployment>
   message: <The commit message>
 ```
-- Deploy the website by running the following commands:
-```bash
-# Clean the database and the public folder
-hexo clean
-# Generate all the static webpages
-hexo generate
-# Deploy the website
-hexo deploy
-```
-- _Notice: You should have access to the Git repository for deployment._
+- Deploy the website by either `deploy.bat` or `deploy.sh` depending on your OS. _Prior to doing this, check that you have access to the Git repository._
+
+### Staging deployment
+
+We are also using [Netlify](https://www.netlify.com) as a CI/CD service to host the staging site. The relevant configuration for Netlify can be found in the file [netlify.toml](netlify.toml).
+
+You should take special note that the Hexo.js configuration [file](_config_netlify.yml) for the staging environment is different. This is due to the differences in base URL and root path between the two environments. When running the Hexo commannds, make sure you suffix them with `--config _config_netlify.yml`.
 
 ## Acknowledgements
 
