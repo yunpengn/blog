@@ -87,7 +87,7 @@ You should take special note that the Hexo.js configuration [file](_config_netli
 
 ## Copyright
 
-Copyright &copy; 2017 - 2018 by [Niu Yunpeng](https://www.github.com/yunpengn/)
+Copyright &copy; 2017 - Present by [Niu Yunpeng](https://www.github.com/yunpengn/)
 
 This project ([Yunpeng's Blog](https://yunpengn.github.io/blog/)) is licensed under a [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/) (_"the licence"_). Based on a work at [this repository](https://github.com/yunpengn/blog).
 
@@ -99,6 +99,8 @@ under the following terms:
 - You may not use the material for commercial purposes; and
 - If you remix, transform, or build upon the material, you may not distribute the modified material; and
 - You may not apply legal terms or technological measures that legally restrict others from doing anything the license permits.
+
+> In summary, the licence mentioned above allows you to view and share this work in its original form via any meidum. However, you are **NOT** allowed to modify it for other uses (_such as to create your own website_).
 
 A copy of the licence has been attached to this repository, and can be found [here](LICENSE.md). You may seek permissions beyond the scope of this license by contacting the author at [neilniuyunpeng@gmail.com](mailto:neilniuyunpeng@gmail.com).<br>
 
