@@ -10,7 +10,7 @@ Below we will talk about the classical evaluation & implementation of relational
 
 - [Selection](#Selection)
 - [Projection](#Projection)
-- Join, cross product
+- [Join](#Join), cross product
 - Set operations (intersection, union, difference)
 - Grouping & aggregation
 
@@ -33,6 +33,11 @@ To process generic selection, we could express the predicate(s) as a **conjuncti
 In relational algebra, projection requires us to remove unwanted attributes and eliminate duplicate tuples. Although it is relatively easy to remove unwanted attributes, we require some work to eliminate duplication (by either sorting or hashing).
 
 - _Projection based on sorting:_ sort first and do a sequential scan on the sorted output to eliminate duplicates. The time complexity would be `O(M * logM)`, where `M` is the number of pages. The bottleneck is the sorting step.
+- _Projection based on hashing:_ worthy if we have faily large number of buffer pages `B`. We would use 1 page as the input buffer and `B - 1` pages as the output buffer. The hash function `f` would be desired to partition the tuples equally to `B - 1` output pages. This is similar to the idea of Bloom filter in the sense that two tuples belonging to different partitions are guaranteed to be not duplicates of each other. In other words, we could only possibly find duplicates within the same partition. Then, for each partition produced in the first phase, we process one page at a time. For the page being processed, read all entried into an in-memory hashtable to eliminate duplicates. Notice that the hash function used here should be different from the previous one `f`. This hashing strategy will not work when the size of a hashtable for a partition is greater than the number of available buffer pages `B` (the _partition overflow_ problem). Though, we could divide the overflowing partition into sub-partitions and apply hashing recursively.
+
+Comparing the two approaches above, sorting-based approach would be better when there are many duplicates or the distribution of (hash) values is very non-uniform. A useful side effect of sorting-based approach is that the result would be sorted. Thus, sorting could be the standard implementation for projection in many systems.
+
+## Join
 
 ## References
 
