@@ -14,6 +14,8 @@ _(This article was based on part of my project report. You may want to take a lo
 
 Here, we refer to **horizontal partitioning**, which is also known as **data sharding**. Traditionally, there are 3 approaches to achieve data partitioning, namely, server-side partitioning, cluster proxy, and client-side partitioning.
 
+<!-- more -->
+
 ### Server-side partitioning
 
 The datastore nodes take full control of the partitioning. In other words, the client does not know how the partitioning is done. Thus, it has to blindly send a request to a random master node. If this node is not the correct node, a redirect must be done. The redirect can be in the form of either:

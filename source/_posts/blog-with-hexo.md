@@ -20,6 +20,8 @@ As you may already know, this blog is built using [Hexo.js](https://hexo.io) wit
 
 Given all the factors mentioned above, I choose [Hexo.js](https://hexo.io/) in the end.
 
+<!-- more -->
+
 ## Why am I using theme Next?
 
 - I have tried other themes before. They are just not _nice enough_. I do not like the styling.

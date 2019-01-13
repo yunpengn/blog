@@ -28,6 +28,8 @@ Aligned with the above description, the languages provide the following framewor
 - **Node.js**: [Express](http://expressjs.com), [Sails](https://sailsjs.com).
 - **Python**: [Django](https://www.djangoproject.com).
 
+<!-- more -->
+
 To select a frontend framework, there are usually two steps:
 - _Select an interface-design framework_: whether to use raw HTML+CSS+JavaScript or newer MVVM techniques such as [Vue.js](https://vuejs.org). In other words, you need to decide whether to build a single-page application (SPA) or multi-page application (MPA).
 - _Select a UI element library_: whether to use Twitter's [Bootstrap](https://getbootstrap.com) or Alibaba's [Ant Design](https://ant.design/).

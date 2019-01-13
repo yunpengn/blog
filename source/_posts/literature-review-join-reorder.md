@@ -30,6 +30,8 @@ Up to now, hopefully the topic has become much clearer to you. In _join reordera
 
 As follows, I summarize some recent researches on this topic and give my _naive_ literature reviews on them.
 
+<!-- more -->
+
 ### Moerkotte, G., Fender, P., & Eich, M. (2013). On the correct and complete enumeration of the core search space. doi:10.1145/2463676.2465314
 
 This paper begins by pointing out two major approaches (bottom-up dynamic programming & top-down memoization) to find optimal join order requires the considered search space to be valid. In other words, this probably only works when we consider inner joins only. Such algorithms could not work on outerjoins, antijoins, semijoins, groupjoins, etc.

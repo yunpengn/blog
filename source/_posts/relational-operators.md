@@ -14,6 +14,8 @@ Below we will talk about the classical evaluation & implementation of relational
 - Set operations (intersection, union, difference)
 - Grouping & aggregation
 
+<!-- more -->
+
 ## Selection
 
 The selection operation is discussed in Section 14.1 of the [textbook](http://pages.cs.wisc.edu/~dbbook/). Based on the availability of indexes and sorting, we discuss the following scenarios:
