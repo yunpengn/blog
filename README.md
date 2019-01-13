@@ -11,10 +11,6 @@ This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal b
 
 - Make sure you have installed the latest version of [Node.js](https://nodejs.org/), [Npm](https://www.npmjs.com) and [Git](https://git-scm.com/) on your development machine. Npm should come with Node.js.
 	- You chould check them by `git --version`, `node -v` and `npm -v`.
-- Install the command line interface of [Hexo.js](https://hexo.io/).
-```bash
-npm install hexo-cli -g
-```
 - Fork and clone this repository to your computer.
 ```bash
 git clone --recurse-submodules git@github.com:yunpengn/blog.git
@@ -29,11 +25,9 @@ npm install
 ```
 - Run the Hexo server to host the website locally.
 ```bash
-hexo server
+npm start
 ```
-- Now, you can visit the website at `http://localhost:4000/blog/`
-- Hexo will watch for file changes and update automatically, so it’s not necessary to manually restart the server.
-	- Use `hexo server -s` to serve from `public` folder and disable file watching.
+- Now, you can visit the website at `http://localhost:4000/blog/`.
 
 ## Writing
 

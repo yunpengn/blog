@@ -1,25 +1,40 @@
 {
-  "name": "yunpeng-hexo-blog",
-  "version": "0.1.5",
-  "private": true,
-  "hexo": {
-    "version": "3.8.0"
+  "author": {
+    "name": "Yunpeng Niu",
+    "email": "neilniuyunpeng@gmail.com",
+    "url": "https://yunpengn.github.io/"
   },
   "dependencies": {
     "hexo": "^3.8.0",
     "hexo-deployer-git": "git+https://github.com/hexojs/hexo-deployer-git.git",
-    "hexo-generator-archive": "^0.1.4",
+    "hexo-generator-archive": "^0.1.5",
     "hexo-generator-category": "^0.1.3",
     "hexo-generator-feed": "^1.2.2",
-    "hexo-generator-index": "^0.2.0",
+    "hexo-generator-index": "^0.2.1",
     "hexo-generator-sitemap": "^1.2.0",
     "hexo-generator-tag": "^0.2.0",
-    "hexo-renderer-ejs": "^0.3.0",
-    "hexo-renderer-marked": "^0.3.0",
-    "hexo-renderer-stylus": "^0.3.1",
+    "hexo-renderer-ejs": "^0.3.1",
+    "hexo-renderer-marked": "^0.3.2",
+    "hexo-renderer-stylus": "^0.3.3",
     "hexo-server": "^0.3.3"
   },
   "devDependencies": {
-    "hexo-all-minifier": "^0.5.2"
-  }
+    "hexo-all-minifier": "^0.5.2",
+    "hexo-cli": "^1.1.0"
+  },
+  "hexo": {
+    "version": "3.8.0"
+  },
+  "homepage": "https://github.com/yunpengn/blog",
+  "license": "CC-BY-ND-4.0",
+  "name": "yunpeng-blog",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:yunpengn/blog.git"
+  },
+  "scripts": {
+    "start": "./node_modules/hexo-cli/bin/hexo server"
+  },
+  "version": "0.1.5"
 }
