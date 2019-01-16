@@ -26,11 +26,11 @@ Further, this means our algorithms cannot safely search on the entire space to f
 
 Up to now, hopefully the topic has become much clearer to you. In _join reorderability_, we are trying to figure out "the ability to manipulate the join query to a certain join order".
 
+<!-- more -->
+
 ## Recent Researches
 
 As follows, I summarize some recent researches on this topic and give my _naive_ literature reviews on them.
-
-<!-- more -->
 
 ### Moerkotte, G., Fender, P., & Eich, M. (2013). On the correct and complete enumeration of the core search space. doi:10.1145/2463676.2465314
 

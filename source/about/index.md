@@ -8,5 +8,7 @@ Hi, this is [Yunpeng](https://yunpengn.github.io). This website is my personal b
 
 I love coding and software engineering. Thus, this blog will contain some technical discussion as well. If you do not agree with me or find a better solution or a clearer understanding to the problem, you may kindly leave a comment. I always strive to make sure my code is clear, precise and concise, in that order of importantce. Please follow such coding style when you want to include code snippets.
 
+{% img /images/road_sky.jpg 550 "Lonely Road & Blue Sky" %}
+
 Thanks,
 Yunpeng

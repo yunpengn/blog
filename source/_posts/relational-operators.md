@@ -11,8 +11,8 @@ Below we will talk about the classical evaluation & implementation of relational
 - [Selection](#Selection)
 - [Projection](#Projection)
 - [Join](#Join), cross product
-- Set operations (intersection, union, difference)
-- Grouping & aggregation
+- [Set operations](#Set-Operations) (intersection, union, difference)
+- [Grouping & aggregation](#Aggregation)
 
 <!-- more -->
 
@@ -40,6 +40,39 @@ In relational algebra, projection requires us to remove unwanted attributes and 
 Comparing the two approaches above, sorting-based approach would be better when there are many duplicates or the distribution of (hash) values is very non-uniform. A useful side effect of sorting-based approach is that the result would be sorted. Thus, sorting could be the standard implementation for projection in many systems.
 
 ## Join
+
+Since join could be the most expensive operator in relational algebra, it also becomes significantly necessary for us to figure out how to optimize it. Although we can say join is a cross product followed by a selection & projection. We really want to avoid executing the cross product in the actual implementation because that's going to be expensive. Here, we will discuss the following approaches to implement join:
+
+- _Simple nested loop:_ contains execution of cross product, would result in a time complexity of `O(M * N)`, where `M` and `N` are the number of pages for the two relations respectively. Depending on the position of the loop variable, one relation `R` would be called the _outer relation_, while the other relation `S` would be called the _inner relation_.
+- _Block-based nested loop:_ still contains execution of cross product, but utilize the buffer pages better. This would work when we could hold one smaller relation in the buffer. If we cannot fit the whole relation into buffer, we could split it into blocks.
+- _Index-based nest loop:_ no execution of cross product. However, this could only be possible when there is an index on one of the join attributes. The relation with indexed attribute would be the inner relation. In this way, we compare the outer tuple with the inner tuples in the matching partition only. Certainly, this approach would bring a nice performance when the index is clustered. In general, it would be better than the previous two approaches.
+- _Sort-merge join:_ no execution of croos product. This method would first do an external sorting to sort two relations on the joined attributes. Then, it would do a merging on the two relations since they are already sorted. Notice that the sorting step essentially enables the possibility of finding partitions. Then, similar to index-based nest loop, we could only search for tuples in the targeted partition. Sometimes, the relation could have already been sorted on the joined attribute. This would make sort-merge join even better. To make sure we do not miss any tuple, we have to be careful to implement the algorithm correctly so that two pointers (for two relations) are advancing in turn. If at least one relation involved can guarantee no duplicates on the join attribute (such as a key-foreign key join), the I/O costs for the merge step would be `O(M + N)` since we essentially just scan both relations once. This method can be further enhanced by blocked access and double buffering.
+- _Hash join:_ no execution of cross product. This method has two phases: first _partitioning phase_ to use hashing function to separate the relation into hash slots, second _probing phase_ similar to merging but using hash function to identify the corrsponding partition instead. It is necessary to use the same hash function `h` to hash both relations. In the probing phase, we would practically build an in-memory hash table for the targeted partition to speed up the process. The hash function for this in-memory hash table must be different from `h`. The I/O costs would therefore be around `3 * (M + N)`, or `O(M + N)`. If the partition overflow problem happens, one solution would be to apply the hash join technique recursively.
+	- _Hybrid hash join:_ a variant of hash join when more memory is available. In this enhanced method, we basically hold one partition of the outer relation `R` in memory rather than write it back to disk. When partitioning `S`, we would also perform the probing with the in-memory `R` directly.
+
+Now, we discuss join predicates of more general forms, such as inequality conditions or equality conditions over multiple attributes.
+
+- _Inequality conditions:_ requires a B+ tree index for index-based nested loop, hash join & sort-merge join will become inapplicable since we essentailly cannot find the corrsponding partition.
+- _Equality conditinos involving multiple attributes:_ build an index of multiple attributes for index-based nested loop, sort on multiple attributes for sort-merge join.
+
+## Set Operations
+
+Now, we discuss the following 4 set operations on two relations:
+
+- _Cross product:_ similar to join with no predicate(s), can use the algorithms mentioned in the last section.
+- _Intersection:_ similar to join with a large equality predicate on all attributes.
+- _Union:_ simply put two relations together and then eliminate duplicates, similar to the projection operation.
+- _Difference:_ implemented using a variant of union.
+
+In general, for union and difference, sort-merge and hash would still be two major approaches.
+
+## Aggregation
+
+
+
+## Errata
+
+- On Page 462, `combining the merging phase of sorting with the merging phase of the join` should be changed to `combining the sorting phase of the join with the merging phase of the join`.
 
 ## References
 
