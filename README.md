@@ -66,11 +66,11 @@ deploy:
   branch: <The branch for deployment>
   message: <The commit message>
 ```
-- Deploy the website by either `deploy.bat` or `deploy.sh` depending on your OS. _Prior to doing this, check that you have access to the Git repository._
+- Deploy the website by running `npm run deploy`. _Prior to doing this, check that you have access to the Git repository._
 
 ### Staging deployment
 
-We are also using [Netlify](https://www.netlify.com) as a CI/CD service to host the staging site. The relevant configuration for Netlify can be found in the file [netlify.toml](netlify.toml).
+We are also using [Netlify](https://www.netlify.com) as a CI/CD service to host the staging site. The relevant configuration for Netlify can be found in the file [netlify.toml](netlify.toml). The staging pipeline would run whenever you push the changes to this GitHub repository and there is no manual step involved.
 
 You should take special note that the Hexo.js configuration [file](_config_netlify.yml) for the staging environment is different. This is due to the differences in base URL and root path between the two environments. When running the Hexo commannds, make sure you suffix them with `--config _config_netlify.yml`.
 

@@ -34,6 +34,7 @@
     "url": "git@github.com:yunpengn/blog.git"
   },
   "scripts": {
+    "deploy": "./node_modules/hexo-cli/bin/hexo clean && ./node_modules/hexo-cli/bin/hexo deploy --generate",
     "start": "./node_modules/hexo-cli/bin/hexo server"
   },
   "version": "0.1.5"

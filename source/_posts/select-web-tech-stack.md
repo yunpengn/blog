@@ -12,14 +12,14 @@ In this post, I would like to present the decision-making process.
 
 ## What are the possible languages, frameworks?
 
-ertainly, there are many different choices. Let's compare them as follows.
-
-To select a backend framework, it is essentially to select a server-side programming language.
+Certainly, there are many different choices. Let's compare them as follows. To select a backend framework, it is essentially to select a server-side programming language.
 - **Java _(current choice)_**: good for scalability and maintainability, used in many enterprise applications. As a relatively _old_ language, its robustness is no doubt.
 - **PHP**: also a traditional choice. However, its performance is not as good as Java (since Java is a fully compiled language, PHP is parsed into opcode and sent to [Zend Engine](http://www.zend.com/en/resources/php-7)).
 - **Ruby**: a dynamic-typed language, which becomes famous due to Ruby on Rails. You can write less code to achieve more functionalities. However, its performance is even worse and its development environment is also not trivial to set up.
 - **Node.js**: a newer technology than others. It provides a unified language for both frontend and backend development. It is fast since it leverages JavaScript event loop to create non-blocking I/O.
 - **Python**: clear and compact syntax that is helpful to developers. Similar to Ruby, it has potential performance issues.
+
+<!-- more -->
 
 Aligned with the above description, the languages provide the following frameworks:
 - **Java**: [Spring](https://spring.io), [Spring Boot](https://spring.io/projects/spring-boot), [Spring Cloud](http://projects.spring.io/spring-cloud/).
@@ -28,9 +28,7 @@ Aligned with the above description, the languages provide the following framewor
 - **Node.js**: [Express](http://expressjs.com), [Sails](https://sailsjs.com).
 - **Python**: [Django](https://www.djangoproject.com).
 
-<!-- more -->
-
-To select a frontend framework, there are usually two steps:
+However, to select a frontend framework, there are usually two steps:
 - _Select an interface-design framework_: whether to use raw HTML+CSS+JavaScript or newer MVVM techniques such as [Vue.js](https://vuejs.org). In other words, you need to decide whether to build a single-page application (SPA) or multi-page application (MPA).
 - _Select a UI element library_: whether to use Twitter's [Bootstrap](https://getbootstrap.com) or Alibaba's [Ant Design](https://ant.design/).
 
