@@ -16,6 +16,8 @@ For a query attempting to join `n` tables together, we need `n - 1` individual j
 
 {% img /images/join_order_tree.jpg 450 "3 types of join trees" %}
 
+<!-- more -->
+
 For a join on `n` tables, there could be `n!` left-deep trees and `n!` right-deep trees respectively. There could be even more bushy trees, etc. Given so many different join orders, it is important to find an optimal one among them. There are many different algorithms to find the optimal join order: exhaustive, greedy, randomized, transformation, dynamic programming (with pruning).
 
 ## Join Reorderability
@@ -25,8 +27,6 @@ As illustrated in the last section, we have developed algorithms to find the opt
 Further, this means our algorithms cannot safely search on the entire space to find an optimal order _(i.e. a significant subset of the search space is invalid)_. Such dilemma puts us into two questions: 1) which part of the search space is valid? 2) what can we do with the invalid part of the search space?
 
 Up to now, hopefully the topic has become much clearer to you. In _join reorderability_, we are trying to figure out "the ability to manipulate the join query to a certain join order".
-
-<!-- more -->
 
 ## Recent Researches
 

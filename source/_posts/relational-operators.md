@@ -68,7 +68,18 @@ In general, for union and difference, sort-merge and hash would still be two maj
 
 ## Aggregation
 
+In SQL standard, aggregated functions include `AVG`, `MIN`, `MAX`, `SUM` & `COUNT`. Obviously, the basic algorithm would be to scan through the entire relation and maintain some running information along the way.
 
+Usually, they would be used with the `GROUP BY` clause. Without relying on existing indexes, we could derive algorithms based on sorting or hashing _(again, similar to what we do in the last section & last second section)_. For the sorting approach, we would simply sort the relation on the grouping attribute and iterate the sorted relatin to compute the aggregate operation for each group. If we canc do the iteration step together with the sorting step, this approach would be as fast as (or as slow as) the time for the external sorting. For the hashing approach, we build a hashmap on the grouping attribute (with the grouped attribute value as the key and the running information of each group as the value). Hopefully, we could store this hashmap in memory to speed up the process. The cost for this approach would be `O(M)`, where `M` is the size of the relation (i.e., the number of pages). If the hashmap mentioned cannot fit into the memory, we could use a double-hashing approach (i.e., partition the relation using a hashing function on the grouping attribute first, and then do the normal hashing approach on each partition).
+
+Also, we could utilize the existing index(es) to accelerate aggregation. If all attributes needed for the aggregation calculation are present in the index(es), we could avoid actually fetching the data records. For a tree index (i.e., we could retrieve data in a sorted manner), if the attributes in the `GROUP BY` list forms a **prefix** on the index search key of the tree index, we could effectively avoid the sorting step.
+
+## The Use of Buffering
+
+In many algorithms mentioned above, we rely heavily on the buffer pages. If there are multiple operations running concurrently, the size of available buffer pool reduces. Also, if tuples are accessed via an unclustered inxex, mostly it would not be in the buffer pool (although this depends on the size of the buffer pool and the replacement policy). This is because in this context, each tuple retrieved would probably bring in a new page and the buffer pool would be full very soon. When observing a repeated pattern of accessing certain page(s), we probably need to think about carefully on the selection of appropriate replacement policy. Below we list a few pitfalls regarding the selection of replacement policy:
+
+- _Sequentially flooding_ problem: let's say we are executing a simple nested loop join, and we want to buffer the outer relation but cannot hold the whole outer relation. Then, if we use LRU as the replacement policy, the buffer pool effectively becomes a so-called "sliding window" but is never useful (i.e., we always have to do a disk I/O when retrieving a new page).
+- For an index-based nested loop join, we could sort the outer relations so that there are a few tuples of the inner relation who would often appear (because the neighboring outer relation tuples probably belong to the same partition of the index and thus those few inner relation tuples often appear). Therefore, it is easier to manage the buffer pool in this way.
 
 ## Errata
 
