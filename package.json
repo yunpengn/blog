@@ -19,7 +19,7 @@
     "hexo-server": "^0.3.3"
   },
   "devDependencies": {
-    "hexo-all-minifier": "^0.5.2",
+    "hexo-all-minifier": "^0.5.3",
     "hexo-cli": "^1.1.0"
   },
   "hexo": {
@@ -37,5 +37,5 @@
     "deploy": "./node_modules/hexo-cli/bin/hexo clean && ./node_modules/hexo-cli/bin/hexo deploy --generate",
     "start": "./node_modules/hexo-cli/bin/hexo server"
   },
-  "version": "0.1.5"
+  "version": "0.1.6"
 }
