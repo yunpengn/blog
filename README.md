@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.com/yunpengn/blog.svg?branch=master)](https://travis-ci.com/yunpengn/blog)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=yunpengn/blog)](https://dependabot.com)
 
 # Yunpeng's Blog
