@@ -1,7 +1,7 @@
 ---
 title: Understanding How is Data Stored in RDBMS
 date: 2019-01-20 21:16:19
-categories: Technical
+categories: [Technical, Database, SQL]
 ---
 
 We all know that DBMS _(database management system)_ is used to store (a massive amount of) data. However, have you ever wondered how is data stored in DBMS? In this post, we will focus on data storage in RDBMS, the most traditional relational database systems.

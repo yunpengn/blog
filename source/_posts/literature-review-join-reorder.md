@@ -1,7 +1,7 @@
 ---
 title: Literature Review on Join Reorderability
 date: 2018-12-22 16:24:11
-categories: Technical
+categories: [Technical, Database, SQL]
 ---
 
 Recently, I was looking at some research papers on the join reorderability. To start with, let's understand what do we mean by _"join reorderability"_ and why it is important.

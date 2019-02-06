@@ -1,7 +1,7 @@
 ---
 title: Redis Cluster & Common Partition Techniques in Distributed Cache
 date: 2018-07-27 13:09:53
-categories: Technical
+categories: [Technical, Database, Redis]
 ---
 
 In this post, I will discuss a few common partition techniques in distributed cache. Especially, I will elaborate on my understanding on the use of [Redis Cluster](https://redis.io/topics/cluster-tutorial).

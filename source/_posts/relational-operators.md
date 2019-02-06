@@ -1,7 +1,7 @@
 ---
 title: Evaluation & Implementation of Relational Operators
 date: 2019-01-05 22:10:55
-categories: Technical
+categories: [Technical, Database, SQL]
 ---
 
 This post talks about some basic implementation of relational operators in traditional RDBMS (relational database management systems). It was based on Chapter 14 of the [textbook](http://pages.cs.wisc.edu/~dbbook/) by [Raghu Ramakrishnan](http://pages.cs.wisc.edu/~raghu) and [Johannes Gehrke](http://www.cs.cornell.edu/johannes).

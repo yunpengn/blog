@@ -1,7 +1,7 @@
 ---
 title: Blogging with Hexo.js
 date: 2018-04-11 13:00:17
-categories: Technical
+categories: [Technical, Blog]
 ---
 
 As you may already know, this blog is built using [Hexo.js](https://hexo.io) with theme [Next](https://github.com/theme-next/hexo-theme-next). In this post, I will discuss the reasons why I select this static site generator and this theme.

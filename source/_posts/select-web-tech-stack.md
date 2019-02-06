@@ -1,7 +1,7 @@
 ---
 title: To Select the Correct Technical Stack for Web
 date: 2018-04-29 22:04:05
-categories: Technical
+categories: [Technical, Web]
 ---
 
 When I planned to upgrade the [CS1101S DG Website](https://github.com/yunpengn/CS1101S-DG-Website) project, selection of the technical stack became a big headache. The current decision is
