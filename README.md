@@ -75,6 +75,12 @@ We are also using [Netlify](https://www.netlify.com) as a CI/CD service to host 
 
 You should take special note that the Hexo.js configuration [file](_config_netlify.yml) for the staging environment is different. This is due to the differences in base URL and root path between the two environments. When running the Hexo commannds, make sure you suffix them with `--config _config_netlify.yml`.
 
+## Troubleshooting
+
+> Fetched in submodule path 'themes/next', but it did not contain `XXXX`. Direct fetching of that commit failed.
+
+This is usually because the master head of [the theme repository](https://github.com/yunpengn/hexo-theme-next) has been changed recently. Solve this by `cd themes/next && git checkout master && git pull`.
+
 ## Acknowledgements
 
 - [Hexo.js](https://hexo.io/)
