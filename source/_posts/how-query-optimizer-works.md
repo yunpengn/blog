@@ -28,8 +28,100 @@ It would be relatively trivial to convert each query block to relational algebra
 
 ## Estimating the Cost of a Plan
 
-If we represent a query as a tree, we need to estimate, there are two factors to consider when estimating the cost: the cost of performing the corresponding operation at each node, the size of the operation result at each node and whether the result need to be sorted. Here, we focus on how the query optimizer could estimate the result size of an operation (using system catalog).
+If we represent a query as a tree, there are two factors to consider when estimating the cost:
+
+- The cost of performing the corresponding operation at each node;
+- The size of the operation result at each node;
+- Whether the result at a certain node is sorted (so that no need to sort again later).
+
+### The Result Size of an Operation
+
+In this section, we first focus on how the query optimizer could estimate the result size of an operation (using _system catalogs_). We have to understand this first because the other components of the overall cost depends on this. For instance, the cost of performing an operation usually depends on the input size. However, the input of an operator is probably the output of its _base operator_. Thus, we have to estimate the result size of its base operation at first.
+
+To estimate the size of a given operation, we need to have some assumptions:
+
+- **Uniformity**: for each attribute, its values are distributed uniformly;
+- **Independence**: for different attributes, the distribution is independent to each other;
+- **Inclusion**: for convenience, if attribute `A` has fewer number of distinct values than `B`, we assume the distinct values of `A` form a subset of the distinct values of `B`.
+- **Preservation**: due to **independence**, the result preserves all distinct values for attributes not in the selection and/or join predicates.
+
+We need the help of system catalogs to estimate result sizes. The system catalogs should contain information, including but not limited to:
+
+- The number of tuples for each relation;
+- The size of per tuple for each relation;
+- The number of tuples per page for each relation;
+- The number of distinct values for each attribute;
+	- And probably the range of these distinct values if they are continuous.
+- The height for each B+ tree index.
+
+We estimate the result size of an operation using the rules as follows:
+
+- _For an equality selection predicate:_ the output size will be `1 / n` of the input size, where `n` is the number of distinct values on the selection attribute;
+- _For a non-equality selection predicate:_
+	- If we know the range of the values of the selection attribute, the output size will be `m / n` of the input size, where `m` is the number of distinct values left and `n` is the total number of distinct values;
+	- If we are unaware of range of the values of the selection attribute, the output size will be `1 / 2` of the input size. This is a best-effort estimation.
+- _For an equality join predicate:_
+	- Let's say the number of tuples from the left relation `R1`  is `p`, and the number of tuples from the right relation `R2` is `q`;
+	- If the join predicate is `R1.A = R2.B`, the number of distinct values of attribute `A` is `m`, and the number of distinct values of attribute `B` is `n`;
+	- Due to the **inclusion** assumption, we assume all `m` values of `A` form a subset of all `n` values of `B`;
+	- The result size of this inner join would be `p * q / max(m, n)`.
+
+The information stored in system catalogs would only guarantee _eventual consistency_. In other words, it would only be updated periodically (rather than being updated whenever there is a mutable operation on the database). This means the information is inaccurate. Anyway, we are just doing an estimation here. Due to the 3 assumptions above, the calculation is far from accuracy. The error would be more significant when propagating to higher level of the query plan tree.
+
+To deal with the errors and the make the estimation more accurate, we can either:
+
+- Maintain more detailed statistics (like using histogram, etc.);
+	- To capture correlation between 2 columns, we can use 2-dimensional histograms.
+- Sample statistics of the intermediate query results at runtime (to reduce the effect of error propagation).
+
+### The Cost of an Operation
+
+In this section, we discuss the cost of a single operation without considering the correlation between its parent & child operations. Thus, the cost we computer here could be very different from its actual value in a complete query plan tree. This is primaily due to 2 reasons:
+
+- The output of its base operator may have produced sorted result. Thus, if the current operation is sort-based, like sort-merge join, we can simply ignore the cost of the sort step;
+- The SQL engine is using a pipelined execution model (such as the Volcano iterator model mentioned later). In this case, some operations may be performed "on-the-fly" (i.e., combined with its base operator) and does not incur any cost at all.
+
+Below, we first consider the cost of external sorting. Here, the implementation of external sorting is based on k-way merge algorithm. We assume the input has `n` pages and we have `r` buffer pages. Recall external sort needs two steps:
+
+- _Generate sorted runs:_ we need to read all `n` pages and generate `n / r` sorted runs. Then, these sorted runs have to be written back to the hard disk. In total, we need `2n` page I/Os.
+- _Merge sorted runs:_ in each iteration, we can at most merge `r - 1` sorted runs into 1 run (i.e., use `r - 1` pages as input buffer and `1` page as output buffer). Thus, we need `log_(r - 1)^(n / r)` iterations and each iteration would need `2n` page I/Os.
+
+The cost calculation for external sorting is helpful since many other operations would involve the sorting step. Next, we compute the cost of other operations:
+
+- _Selection:_ normally would need to scan the whole table, which means `n` page I/Os. However, it could usually be done "on-the-fly" for pipelined evaluation. It can also be accelerated if the selection attribute has an index available.
+- _Projection:_ similar to selection. Need `n` page I/Os by right, but would be faster with pipelined evaluation or index.
+- _Join:_ depends on the join algorithm used. Let's say left relation has `m` pages, right relation has `n` pages and we have `r` buffer pages. We use left table as the outer relation.
+	- _Tuple-based nested loop join:_ naive algorithm, should always use page-based instead;
+	- _Page-based nested loop join:_  need `m + m * n` page I/Os;
+	- _Block-based nested loop join:_ need `m + m * n / (r - 2)` page I/Os;
+		- We use `r - 2` because 1 page is used as inner relation buffer and 1 page is used as output buffer.
+	- _Index-based nested loop join:_ need `m * k` page I/Os, where `k` is the cost of index access path;
+	- _Sort-merge join_: sort step needs the same cost as external sorting (could ignore if the output of base operator is already sorted), merge step needs _at least_ `m + n` page I/Os';
+	- _Grace hash join_: partition step needs to read all pages and then write back to hard disk thus needs `2m + 2n` page I/Os, and join step needs `m + n` I/Os;
+- _Order by:_ obviously, need to do external sorting;
+- _Group by:_ need to do sorting first which requires the same cost as external sorting, and produce the grouping "on-the-fly" when writing back the sorted result; 
+- _Distinct:_ similar to group by, do sorting first but only write one value from each group back to hard disk;
+- _Set (intersection, union, difference):_ sort-based approach (similar to sort-merge join) or hash-based approach (similar to Grace hash join).
+
+### Volcano Iterator Model
+
+Volcano Iterator Model is a popular implementation of SQL pipelined evaluation. To understand this model better, we can think of it as the `Iterator` interface in Java (i.e., see `java.util.Iterator`). It has 2 methods:
+
+- `hasNext`: to check whether we have finished the operation at this node. For example, it returns `false` when we have fully scanned the table;
+- `next`: to produce the next page as the output of this node.
+
+Certainly, it should also have `open` and `close` methods to open & close the resources needed for this operator (like file & stream operations). Not all operations can be implemented with this iterator model (such as operators which require external sorting). Such operators are called "blocking operators".
+
+This model brings one huge advantage: better response time. Let's say there is a query plan tree with no blocking operators. The end user could get the 1st output page in `O(1)` time even if the overall cost may be `O(n)` or even higher. Further, this has 2 applicable scenarios:
+
+- Let's say the query contains a `LIMIT BY` clause. Using the iterator model means we only need to "pay as you need". If the query only wants the result of first 5 pages, we do not need to process the whole relation. In production systems, we suggest to "protect" all queries with `LIMIT BY` clause due to this reason;
+	- Note such "protection" will be invalidated if there exists blocking operators in the execution plan;
+	- The use of `LIMIT BY` usually aligns with the business requirement as well since mostly the frontend would perform pagination anyway.
+- The SQL server & client could potentially establish a communication model similar to stream processing or message queue. Whenever the iterator model produces a new output page, the client would consume this new page. In this way, the overall latency of the system would be reduced.
+
+## The Search Space
 
 ## References
 
 - [Database Management Systems (3rd edition)](http://pages.cs.wisc.edu/~dbbook/)
+- [Volcano - An Extensible and Parallel Query Evaluation System](https://paperhub.s3.amazonaws.com/dace52a42c07f7f8348b08dc2b186061.pdf)
