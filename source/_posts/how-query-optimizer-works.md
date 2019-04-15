@@ -119,9 +119,40 @@ This model brings one huge advantage: better response time. Let's say there is a
 	- The use of `LIMIT BY` usually aligns with the business requirement as well since mostly the frontend would perform pagination anyway.
 - The SQL server & client could potentially establish a communication model similar to stream processing or message queue. Whenever the iterator model produces a new output page, the client would consume this new page. In this way, the overall latency of the system would be reduced.
 
-## The Search Space
+## Search Space
+
+Next, we discuss the search space of a query optimizer. Recall a query optimizer essentially attempts to find the fastest execution plan amont many potential plans. All these plans which are considered by the query optimizer form the _search space_ of this optimizer.
+
+Note a given query may have many possible execution plans, however, not all of them belong to the "search space". This is simply because there are way too many plans to consider. Thus, the search space is usually a subset of them. As shared in the previous {% post_link literature-review-join-reorder 'post' %}, this "subset" may consist of left deep trees, right deep trees or bushy trees.
+
+How shall we generate these possible execution plans given an initial plan? Let's visualize the execution plan as a tree, we can either:
+
+- Change the order of the execution plan (i.e., swap the nodes in the tree);
+- Change the implementation method of a node in the tree.
+
+## Enumeration Algorithm
+
+Now, we already obtain the execution plans we need to consider and also know how to calculate the cost for each of them. It is time to enumerate through all of them and find our choice. Again, since there are too many plans to consider, it is nearly impossible to iterate through every one of them. In fact, query optimization is an NP-hard problem.
+
+Similar to other NP-hard problems, there are a few categories of algorithms that can help us solve the challenge here:
+
+- Exhaustive search
+	- only possible for queries with small number of relations (i.e., joins).
+- Greedy algorithms
+	- apply some greedy heuristics, fast but could get bad results.
+- Randomized algorithms
+	- such as iterative improvement (II) & simulated annealing (SA).
+- Dynamic programming
+	- most commercial systems apply this approach.
+
+## Conclusion
+
+To conclude, a query optimizer works based on 3 components: **cost model**, **search space**, **enumeration algorithm**. With careful design, the optimizer could hopefully avoid bad plans, although most likely the result would be sub-optimal. Without exhaustive search, it is not always possible to get the optimal plan.
+
+The design of query optimizer is still an ongoing research topic. With the efforts of database researchers around the world, more and more innovations have been developed to improve the performance of SQL query optimizer.
 
 ## References
 
 - [Database Management Systems (3rd edition)](http://pages.cs.wisc.edu/~dbbook/)
 - [Volcano - An Extensible and Parallel Query Evaluation System](https://paperhub.s3.amazonaws.com/dace52a42c07f7f8348b08dc2b186061.pdf)
+- [Randomized Algorithms for Optimizing Large Join Queries](https://dl.acm.org/citation.cfm?id=98740)
