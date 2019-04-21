@@ -64,7 +64,8 @@ We estimate the result size of an operation using the rules as follows:
 	- Let's say the number of tuples from the left relation `R1`  is `p`, and the number of tuples from the right relation `R2` is `q`;
 	- If the join predicate is `R1.A = R2.B`, the number of distinct values of attribute `A` is `m`, and the number of distinct values of attribute `B` is `n`;
 	- Due to the **inclusion** assumption, we assume all `m` values of `A` form a subset of all `n` values of `B`;
-	- The result size of this inner join would be `p * q / max(m, n)`.
+	- The result size of this inner join would be `p * q / max(m, n)`;
+	- For _key & foreign key join_, let's say `A` is the key column while `B` is the foreign key column, then the result size would be `q`.
 
 The information stored in system catalogs would only guarantee _eventual consistency_. In other words, it would only be updated periodically (rather than being updated whenever there is a mutable operation on the database). This means the information is inaccurate. Anyway, we are just doing an estimation here. Due to the 3 assumptions above, the calculation is far from accuracy. The error would be more significant when propagating to higher level of the query plan tree.
 
