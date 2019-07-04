@@ -25,4 +25,14 @@ The guide is proudly created by [GitBook](https://github.com/GitbookIO/gitbook),
 
 This guide is based on the personal experience of Yunpeng, and aims at providing just the coverage of information you need to pass the examination.
 
+## Is this Guide Really Useful?
+
+Well, I have thrilled to make it as useful as possible. Personally, I have passed the [AWS Certified Solutions Architect – Associate](https://aws.amazon.com/certification/certified-solutions-architect-associate/) examination on [2 July 2019](https://www.certmetrics.com/amazon/public/badge.aspx?i=1&t=c&d=2019-07-02&ci=AWS00898411):
+
+{% img /images/aws_cert.png 600 "AWS Certificate SAA-C01" %}
+
+And I have included all of my knowledge regarding AWS into this guide. Thus, you should be able to pass the examination easily after careful study of the guide.
+
+## Good Luck!
+
 Go ahead to https://yunpengn.github.io/CertAWS/ and start preparing for your AWS Certificate Examination today!
