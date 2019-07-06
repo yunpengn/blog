@@ -23,3 +23,105 @@ Below, we present a few common mistakes and point out what could go wrong. We al
 _Notice:_ to ease our discussion here, we take the example of Redis and traditional SQL database. However, please be aware the solutions presented in this post could be extended to other databases, or even the consistency between any two layers in the memory hierarchy.
 
 ## Common Mistakes
+
+Below we describe a few _almost correct (but stil wrong)_ approaches to this problem. In other words, they can guarantee consistency between the 2 layers 99.9% of the time. However, things could go wrong (such as dirty data in cache) under very high concurrency and huge traffic.
+
+However, they are still heavily used in the industry and many companies have been using these approaches for years without major headache. Sometimes, going from 99.9% correctness to 100% correctness is too challenging. For real-world business, faster development lifecycle and shorter go-to-market timeline are probably more important.
+
+### Cache Expiry
+
+Some naive solutions try to use cache expiry or retention policy to handle consistency between MySQL and Redis. Although it is a good practice in general to carefully set expiry time and retention policy for your Redis Cluster, this is a terrible solution to guarantee consistency. Let's say your cache expiry time is 30 minutes. Are you sure you can undertake the danger of reading dirty data for up to half an hour?
+
+What about setting the expiry time to be shorter? Let's say we set it to be 1 minute. Unfortunately, we are talking about services with huge traffic and high concurrency here. 60 seconds may make us lose millions of dollars.
+
+Hmm, let's set it to be even shorter, what about 5 seconds? Well, you have indeed shortened the inconsistent period. However, you have defeated the original objective of using cache! You will have a lot of cache misses and likely the performance of the system will degrade a lot.
+
+### Cache Aside
+
+The algorithm for cache aside pattern is:
+
+- **For immutable operations (read):**
+    - _Cache hit:_ return data from Redis directly, with no query to MySQL;
+    - _Cache miss:_ query MySQL to get the data _(can use read replicas to improve performance)_, save the returned data to Redis, return the result to client.
+- **For mutable operations (create, update, delete):**
+    - Create, update or delete the data to MySQL;
+    - Delete the entry in Redis _(always delete rather than update the cache, the new value will be inserted when next cache miss)_.
+
+{% img /images/cache_aside_1.png 600 "Cache Aside Algorithm" %}
+{% img /images/cache_aside_2.png 600 "Cache Aside Algorithm" %}
+
+This approach would mostly work for common use cases. In fact, cache aside is the de facto standard for implementing consistency between MySQL and Redis. The famous paper, _Scaling Memecache at Facebook_ also described such an approach. However, there does exist some problems with this apporach as well:
+
+- It can only guarantee _eventual consistency_. Let's say process `A` tries to update an existing value. At a certain moment, `A` has successfully updated the value in MySQL. Before it deletes the entry in Redis, another process `B` tries to read the same value. `B` will then get a cache hit (because the entry has not been deleted in Redis yet). Therefore, `B` will read the outdated value. However, the old entry in Redis will eventually be deleted and other processes will eventually get the updated value.
+- To make things worse, it cannot even guarantee _eventual consistency_ under extreme situations. Let's consider the same scenario. If process `A` is killed before it attempts to delete the entry in Redis, that old entry will never be deleted. Hence, all other processes thereafter will keep reading the old value.
+
+### Cache Aside - Variant 1
+
+The algorithm for the 1st variant of cache aside pattern is:
+
+- **For immutable operations (read):**
+    - _Cache hit:_ return data from Redis directly, with no query to MySQL;
+    - _Cache miss:_ query MySQL to get the data _(can use read replicas to improve performance)_, save the returned data to Redis, return the result to client.
+- **For mutable operations (create, update, delete):**
+    - Delete the entry in Redis;
+    - Create, update or delete the data to MySQL.
+
+This can be a very bad solution. Let's say process `A` tries to update an existing value. At a certain moment, `A` has successfully deleted the entry in Redis. Before `A` updates the value in MySQL, process `B` attempts to read the same value and gets a cache miss. Then, `B` queries MySQL and saves the returned data to Redis. Notice the data in MySQl has not been updated at this moment yet. Since `A` will not delete the Redis entry again later, the old value will remain in Redis and all subsequent reads to this value will be wrong.
+
+Under normal scenarios (let's say we assume the process is never killed and write to MySQL/Redis will never fail), the original cache aside algorithm can at least guarantee eventual consistency. However, variant 1 cannot guarantee that and thus should never be used.
+
+### Cache Aside - Variant 2
+
+The algorithm for the 2nd variant of cache aside pattern is:
+
+- **For immutable operations (read):**
+    - _Cache hit:_ return data from Redis directly, with no query to MySQL;
+    - _Cache miss:_ query MySQL to get the data _(can use read replicas to improve performance)_, save the returned data to Redis, return the result to client.
+- **For mutable operations (create, update, delete):**
+    - Create, update or delete the data to MySQL;
+    - Create, update or delete the entry in Redis.
+
+This is a bad solution as well. Let's say there are two processes `A` and `B` both attempting to update an existing value. `A` updates MySQL before `B`; however, `B` updates the Redis entry before `A`. Eventually, the value in MySQL is updated by `B`; however, the value in Redis is updated by `A`. This would cause inconsistency.
+
+Similarly, variant 2 cannot even guarantee eventual consistency under normal scenarios as well.
+
+### Read Through
+
+The algorithm for read through pattern is:
+
+- **For immutable operations (read):**
+    - Client will always simply read from cache. Either _cache hit_ or _cache miss_ is transparent to the client. If it is a cache miss, the cache should have the ability to automatically fetch from the database.
+- **For mutable operations (create, update, delete):**
+    - This strategy does not handle mutable operations. It should be combined with write through (or write behind) pattern.
+
+A key drawback of read through pattern is that many cache layers may not support it. For example, Redis would not be able to fetch from MySQL automatically (unless you write a plugin for Redis).
+
+### Write Through
+
+The algorithm for write through pattern is:
+
+- **For immutable operations (read):**
+    - This strategy does not handle immutable operations. It should be combined with read through pattern.
+- **For mutable operations (create, update, delete):**
+    - The client only needs to create, update or delete the entry in Redis. The cache layer has to atomically synchronize this change to MySQL.
+
+The drawbacks of write through pattern are obvious as well. First, many cache layers would not natively support this. Second, Redis is a cache rather than an RDBMS. It is not designed to be resilient. Thus, changes may be lost before they are replicated to MySQL. Even if Redis has now supported persistence techniques such as RDB and AOF, this approach is still not recommended.
+
+### Write Behind
+
+The algorithm for write behind pattern is:
+
+- **For immutable operations (read):**
+    - This strategy does not handle immutable operations. It should be combined with read through pattern.
+- **For mutable operations (create, update, delete):**
+    - The client only needs to create, update or delete the entry in Redis. The cache layer saves the change into a message queue and returns success to the client. The change is replicated to MySQL asynchronously and may happen after Redis sends success response to the client.
+
+Write behind pattern is different from write through because it replicates the changes to MySQL asynchronously. It improves the throughput because the client does not have to wait for the replication to happen. A message queue with high durability could be a possible implementation. Redis stream _(supported since Redis 5.0)_ could be a good option. To further improve the performance, it is possible to combine the changes and updates MySQL in batch (to save the number of queries).
+
+The drawbacks of write behind pattern are similar. First, many cache layers do not natively support this. Second, the message queue used must be FIFO (first in first out). Otherwise, the updates to MySQL may be out of order and thus the eventual result may be incorrect.
+
+## References
+
+- [Scaling Memcache at Facebook](https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf)
+- [Improve Cache Consistency](http://simongui.github.io/2016/12/02/improving-cache-consistency.html)
+- [Why does Facebook Use Delete to Remove the Key-value Pair in Memcache Instead of Updating Memcahe?](https://www.quora.com/Why-does-Facebook-use-delete-to-remove-the-key-value-pair-in-Memcached-instead-of-updating-the-Memcached-during-write-request-to-the-backend)
