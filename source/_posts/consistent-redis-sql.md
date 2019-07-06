@@ -136,12 +136,10 @@ The algorithm for double delete pattern is:
     - Sleep for a while (such as 500ms);
     - Delete the entry in Redis again.
 
-This approach combines the original cache aside algorithm and its 1st variant. Since it is an improvement based on the original cache aside approach, we can declare that it guarantees _eventual consistency_ under normal scenarios.
-
-Now let's analyze its consistency under extreme conditions. In other words, we are going to see what will happen 
+This approach combines the original cache aside algorithm and its 1st variant. Since it is an improvement based on the original cache aside approach, we can declare that it mostly guarantees _eventual consistency_ under normal scenarios. It has attempted to fix the `unhappy path` of both approaches as well.
 
 ## References
 
 - [Scaling Memcache at Facebook](https://www.usenix.org/system/files/conference/nsdi13/nsdi13-final170_update.pdf)
 - [Improve Cache Consistency](http://simongui.github.io/2016/12/02/improving-cache-consistency.html)
-- [Why does Facebook Use Delete to Remove the Key-value Pair in Memcache Instead of Updating Memcahe?](https://www.quora.com/Why-does-Facebook-use-delete-to-remove-the-key-value-pair-in-Memcached-instead-of-updating-the-Memcached-during-write-request-to-the-backend)
+- [Why does Facebook Use Delete to Remove the Key-value Pair in Memcache Instead of Updating Memcache?](https://www.quora.com/Why-does-Facebook-use-delete-to-remove-the-key-value-pair-in-Memcached-instead-of-updating-the-Memcached-during-write-request-to-the-backend)
