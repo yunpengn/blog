@@ -22,11 +22,11 @@ Below, we present a few common mistakes and point out what could go wrong. We al
 
 _Notice:_ to ease our discussion here, we take the example of Redis and traditional SQL database. However, please be aware the solutions presented in this post could be extended to other databases, or even the consistency between any two layers in the memory hierarchy.
 
-## Common Mistakes
+## Various Solutions
 
-Below we describe a few _almost correct (but stil wrong)_ approaches to this problem. In other words, they can guarantee consistency between the 2 layers 99.9% of the time. However, things could go wrong (such as dirty data in cache) under very high concurrency and huge traffic.
+Below we describe a few approaches to this problem. Most of them are _almost correct (but still wrong)_. In other words, they can guarantee consistency between the 2 layers 99.9% of the time. However, things could go wrong (such as dirty data in cache) under very high concurrency and huge traffic.
 
-However, they are still heavily used in the industry and many companies have been using these approaches for years without major headache. Sometimes, going from 99.9% correctness to 100% correctness is too challenging. For real-world business, faster development lifecycle and shorter go-to-market timeline are probably more important.
+However, these _almost correct_ solutions are heavily used in the industry and many companies have been using these approaches for years without major headache. Sometimes, going from 99.9% correctness to 100% correctness is too challenging. For real-world business, faster development lifecycle and shorter go-to-market timeline are probably more important.
 
 ### Cache Expiry
 
@@ -52,8 +52,11 @@ The algorithm for cache aside pattern is:
 
 This approach would mostly work for common use cases. In fact, cache aside is the de facto standard for implementing consistency between MySQL and Redis. The famous paper, _Scaling Memecache at Facebook_ also described such an approach. However, there does exist some problems with this apporach as well:
 
-- It can only guarantee _eventual consistency_. Let's say process `A` tries to update an existing value. At a certain moment, `A` has successfully updated the value in MySQL. Before it deletes the entry in Redis, another process `B` tries to read the same value. `B` will then get a cache hit (because the entry has not been deleted in Redis yet). Therefore, `B` will read the outdated value. However, the old entry in Redis will eventually be deleted and other processes will eventually get the updated value.
-- To make things worse, it cannot even guarantee _eventual consistency_ under extreme situations. Let's consider the same scenario. If process `A` is killed before it attempts to delete the entry in Redis, that old entry will never be deleted. Hence, all other processes thereafter will keep reading the old value.
+- Under normal scenarios (let's say we assume the process is never killed and write to MySQL/Redis will never fail), it can mostly guarantee _eventual consistency_. Let's say process `A` tries to update an existing value. At a certain moment, `A` has successfully updated the value in MySQL. Before it deletes the entry in Redis, another process `B` tries to read the same value. `B` will then get a cache hit (because the entry has not been deleted in Redis yet). Therefore, `B` will read the outdated value. However, the old entry in Redis will eventually be deleted and other processes will eventually get the updated value.
+- Under extreme situations, it cannot guarantee _eventual consistency_ as well. Let's consider the same scenario. If process `A` is killed before it attempts to delete the entry in Redis, that old entry will never be deleted. Hence, all other processes thereafter will keep reading the old value.
+- Even under normal scenarios, there exists a corner case with very low probability where _eventual consistency_ may break. Let's say process `C` tries to read a value and gets a cache miss. Then `C` queries MySQL and gets the returned result. Suddenly, `C` somehow is stuck and paused by the OS for a while. At this moment, another process `D` tries to update the same value. `D` updates MySQL and has deleted the entry in Redis. After that, `C` resumes and saves its query result into Redis. Hence, `C` saves the old value into Redis and all subsequent processes will read dirty data. This may sound scary, but its probability is very low because:
+    - If `D` is trying to update an existing value, this entry by right should exist in Redis when `C` tries to read it. This scenario will not happen if `C` gets a cache hit. In order for such a case to happen, that entry must have expired and been deleted from Redis. However, if this entry is "very hot" (i.e., there is huge read traffic on it), it should have been saved into Redis again very soon after it is expired. If this belongs to "cold data", there should be low consistency on it and thus it is rare to have one read request and one update request on this entry simultaneously.
+    - Mostly, writing to Redis should be much faster than writing to MySQL. In reality, `C`'s write operation on Redis should happen much earlier than `D`'s delete operation on Redis.
 
 ### Cache Aside - Variant 1
 
@@ -68,7 +71,7 @@ The algorithm for the 1st variant of cache aside pattern is:
 
 This can be a very bad solution. Let's say process `A` tries to update an existing value. At a certain moment, `A` has successfully deleted the entry in Redis. Before `A` updates the value in MySQL, process `B` attempts to read the same value and gets a cache miss. Then, `B` queries MySQL and saves the returned data to Redis. Notice the data in MySQl has not been updated at this moment yet. Since `A` will not delete the Redis entry again later, the old value will remain in Redis and all subsequent reads to this value will be wrong.
 
-Under normal scenarios (let's say we assume the process is never killed and write to MySQL/Redis will never fail), the original cache aside algorithm can at least guarantee eventual consistency. However, variant 1 cannot guarantee that and thus should never be used.
+According to the analysis above, assuming extreme conditions will not happen, both the origin cache aside algorithm and its variant 1 cannot guarantee eventual consistency in some cases (we call such cases the `unhappy path`). However, the probability of the unhappy path for variant 1 is much higher than that of the original algorithm.
 
 ### Cache Aside - Variant 2
 
@@ -116,9 +119,26 @@ The algorithm for write behind pattern is:
 - **For mutable operations (create, update, delete):**
     - The client only needs to create, update or delete the entry in Redis. The cache layer saves the change into a message queue and returns success to the client. The change is replicated to MySQL asynchronously and may happen after Redis sends success response to the client.
 
-Write behind pattern is different from write through because it replicates the changes to MySQL asynchronously. It improves the throughput because the client does not have to wait for the replication to happen. A message queue with high durability could be a possible implementation. Redis stream _(supported since Redis 5.0)_ could be a good option. To further improve the performance, it is possible to combine the changes and updates MySQL in batch (to save the number of queries).
+Write behind pattern is different from write through because it replicates the changes to MySQL asynchronously. It improves the throughput because the client does not have to wait for the replication to happen. A message queue with high durability could be a possible implementation. Redis stream _(supported since Redis 5.0)_ could be a good option. To further improve the performance, it is possible to combine the changes and update MySQL in batch (to save the number of queries).
 
 The drawbacks of write behind pattern are similar. First, many cache layers do not natively support this. Second, the message queue used must be FIFO (first in first out). Otherwise, the updates to MySQL may be out of order and thus the eventual result may be incorrect.
+
+### Double Delete
+
+The algorithm for double delete pattern is:
+
+- **For immutable operations (read):**
+    - _Cache hit:_ return data from Redis directly, with no query to MySQL;
+    - _Cache miss:_ query MySQL to get the data _(can use read replicas to improve performance)_, save the returned data to Redis, return the result to client.
+- **For mutable operations (create, update, delete):**
+    - Delete the entry in Redis;
+    - Create, update or delete the data to MySQL;
+    - Sleep for a while (such as 500ms);
+    - Delete the entry in Redis again.
+
+This approach combines the original cache aside algorithm and its 1st variant. Since it is an improvement based on the original cache aside approach, we can declare that it guarantees _eventual consistency_ under normal scenarios.
+
+Now let's analyze its consistency under extreme conditions. In other words, we are going to see what will happen 
 
 ## References
 
