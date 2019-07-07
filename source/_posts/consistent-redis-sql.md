@@ -86,7 +86,7 @@ The algorithm for the 2nd variant of cache aside pattern is:
 
 This is a bad solution as well. Let's say there are two processes `A` and `B` both attempting to update an existing value. `A` updates MySQL before `B`; however, `B` updates the Redis entry before `A`. Eventually, the value in MySQL is updated by `B`; however, the value in Redis is updated by `A`. This would cause inconsistency.
 
-Similarly, variant 2 cannot even guarantee eventual consistency under normal scenarios as well.
+Similarly, the probability of unhappy path for variant 2 is much higher than that of the original approach.
 
 ### Read Through
 
@@ -137,6 +137,24 @@ The algorithm for double delete pattern is:
     - Delete the entry in Redis again.
 
 This approach combines the original cache aside algorithm and its 1st variant. Since it is an improvement based on the original cache aside approach, we can declare that it mostly guarantees _eventual consistency_ under normal scenarios. It has attempted to fix the `unhappy path` of both approaches as well.
+
+By pausing the process for 500ms, the algorithm assumes all concurrent read processes have saved the old value into Redis and thus the 2nd delete operation on Redis will clear all dirty data. Although there does still exist a corner case where this algorithm to break eventual consistency, the probability of that would be negligible.
+
+### Write Behind - Variant
+
+In the end, we present a novel approach introduced by the [canal](https://github.com/alibaba/canal) project developed by [Alibaba Group](https://www.alibabagroup.com/) from China.
+
+This new method can be considered as a variant of the [write behind](#Write-Behind) algorithm. However, it performs replication in the other direction. Rather than replicating changes from Redis to MySQL, it subscribes to the [binlog](https://dev.mysql.com/doc/refman/8.0/en/binary-log.html) of MySQL and replicates it to Redis. This provides much better durability and consistency than the original algorithm. Since binlog is part of the RDMS technology, we can assume it is durable and resilient under disaster. Such an architecture is also quite mature as it has been used to replicate changes between MySQL master and slaves.
+
+## Conclusion
+
+In conclusion, none of the approaches above can guarantee _strong consistency_. Strong consistency may not be a realistic requirement for the consistency between Redis and MySQL as well. To guarantee strong consistency, we have to implement ACID on all operations. Doing so will degrade the performance of the cache layer, which will defeat our objectives of using Redis cache.
+
+However, all the approaches above have attempted to achieve _eventual consistency_, of which the last one (introduced by [canal](https://github.com/alibaba/canal)) being the best. Some of the algorithms above are improvements to some others. To describe their hierarchy, the following tree diagram is drawn. In the diagram, each node would in general achieve better consistency that its children (if any).
+
+{% img /images/redis_mysql_hierarchy.png 600 "Hierarchy Diagram of Consistency between MySQL and Redis" %}
+
+We conclude there would always be a tradeoff between 100% correctness and performance. Sometimes, 99.9% correctness is already enough for real-world use cases. In future researches, we remind that people should remeber to not defeat the original objectives of the topic. For example, we cannot sacrifice performance when discussing the consistency between MySQL and Redis.
 
 ## References
 
