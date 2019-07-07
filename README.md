@@ -1,3 +1,4 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/ea11954c-1f55-449c-b200-be19b3fbc339/deploy-status)](https://app.netlify.com/sites/yunpengn-blog/deploys)
 [![Build Status](https://travis-ci.com/yunpengn/blog.svg?branch=master)](https://travis-ci.com/yunpengn/blog)
 [![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=yunpengn/blog)](https://dependabot.com)
 
