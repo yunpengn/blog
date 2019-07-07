@@ -19,6 +19,8 @@ function magic_length(input) {
 
 Please give one possible value of `input` such that `magic_length(input)` will return `true`. _Notice: `input` should be of basic data type provided by built-in libraries._
 
+<!-- more -->
+
 ### Solution
 
 One possible value of `input` is `[undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined]` (an array of 10 items, each of which is `undefined`).
