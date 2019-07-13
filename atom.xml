@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Yunpeng&#39;s Blog</title>
+  
+  <subtitle>Life, coding and everything</subtitle>
+  <link href="/blog/atom.xml" rel="self"/>
+  
+  <link href="https://yunpengn.github.io/blog/"/>
+  <updated>2019-07-13T09:42:23.413Z</updated>
+  <id>https://yunpengn.github.io/blog/</id>
+  
+  <author>
+    <name>Niu Yunpeng</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Re-understand JavaScript</title>
+    <link href="https://yunpengn.github.io/blog/2019/06/18/re-understand-javascript/"/>
+    <id>https://yunpengn.github.io/blog/2019/06/18/re-understand-javascript/</id>
+    <published>2019-06-18T05:56:39.000Z</published>
+    <updated>2019-07-13T09:42:23.413Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;In this post, we will be looking at a few interesting (but could be challenging) JavaScript questions.&lt;/p&gt;&lt;p&gt;Most of them are actually testing the so-called “down-side” of JavaScript. You certainly should not write such code in a real-world codebase. As I have repeated many times, code should be clear, precise and concise, in that order of importantce. Nevertheless, they are indeed good questions to test your competency in JavaScript.&lt;/p&gt;&lt;h2 id=&quot;9-or-10&quot;&gt;&lt;a href=&quot;#9-or-10&quot; class=&quot;headerlink&quot; title=&quot;9 or 10?&quot;&gt;&lt;/a&gt;9 or 10?&lt;/h2&gt;&lt;p&gt;You are given a function called &lt;code&gt;magic_length&lt;/code&gt;, which is defined as follows:&lt;/p&gt;&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;magic_length&lt;/span&gt;(&lt;span class=&quot;params&quot;&gt;input&lt;/span&gt;) &lt;/span&gt;&amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; input.length == &lt;span class=&quot;number&quot;&gt;10&lt;/span&gt; &amp;amp;&amp;amp; input == &lt;span class=&quot;string&quot;&gt;&quot;,,,,,,,,,&quot;&lt;/span&gt;;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;Please give one possible value of &lt;code&gt;input&lt;/code&gt; such that &lt;code&gt;magic_length(input)&lt;/code&gt; will return &lt;code&gt;true&lt;/code&gt;. &lt;em&gt;Notice: &lt;code&gt;input&lt;/code&gt; should be of basic data type provided by built-in libraries.&lt;/em&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Web" scheme="https://yunpengn.github.io/blog/categories/Technical/Web/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Introducing your Guide to be AWS Certified</title>
+    <link href="https://yunpengn.github.io/blog/2019/06/15/aws-certificate-guide/"/>
+    <id>https://yunpengn.github.io/blog/2019/06/15/aws-certificate-guide/</id>
+    <published>2019-06-15T12:34:12.000Z</published>
+    <updated>2019-07-13T09:42:23.412Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Hi guys, it has been a long time since my last post. In the past few months, I have been preparing for the &lt;a href=&quot;https://aws.amazon.com/certification/certified-solutions-architect-associate/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;AWS Certified Solutions Architect – Associate&lt;/a&gt; examination, which is part of the series of &lt;a href=&quot;https://aws.amazon.com/certification/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;AWS Certificate Examination&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;This examination (and its siblings) focus on some cloud computing concepts, as well as a lot of details specific to the services provided by AWS. To prepare for this examination, there are a few important learning resources:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://d1.awsstatic.com/training-and-certification/docs-sa-assoc/AWS_Certified_Solutions_Architect_Associate_Feb_2018_%20Exam_Guide_v1.5.2.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Official Examination Guide&lt;/a&gt; and &lt;a href=&quot;https://d1.awsstatic.com/training-and-certification/docs/AWS_Certified_Solutions_Architect_Associate_Sample_Questions.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;sample questions&lt;/a&gt;;&lt;/li&gt;&lt;li&gt;AWS whitepapers, which have been collected and available at &lt;a href=&quot;https://aws.amazon.com/whitepapers/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;https://aws.amazon.com/whitepapers/&lt;/a&gt;;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://www.aws.training/LearningLibrary&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;AWS Training Learn Library&lt;/a&gt;, which offers a free subscription currently;&lt;/li&gt;&lt;li&gt;Some online courses, of which &lt;a href=&quot;https://acloud.guru/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;A Cloud Guru&lt;/a&gt; being one of the most popular providers.&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Cloud" scheme="https://yunpengn.github.io/blog/categories/Technical/Cloud/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Consistency between Redis Cache and SQL Database</title>
+    <link href="https://yunpengn.github.io/blog/2019/05/04/consistent-redis-sql/"/>
+    <id>https://yunpengn.github.io/blog/2019/05/04/consistent-redis-sql/</id>
+    <published>2019-05-04T09:02:18.000Z</published>
+    <updated>2019-07-13T09:42:23.412Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Nowadays, Redis has become one of the most popular cache solution in the Internet industry. Although relational database systems (SQL) bring many awesome properties such as ACID, the performance of the database would degrade under high load in order to maintain these properties.&lt;/p&gt;&lt;p&gt;In order to fix this problem, many companies &amp;amp; websites have decided to add a cache layer between the application layer (i.e., the backend code which handles the business logic) and the storage layer (i.e., the SQL database). This cache layer is usually implemented using an in-memory cache. This is because, as stated in many textbooks, the performance bottleneck of traditional SQL databases is usually I/O to secondary storage (i.e., the hard disk). As the price of main memory (RAM) has gone down in the past decade, it is now feasible to store (at least part of) the data in main memory to improve performance. One popular choice is Redis.&lt;/p&gt;&lt;img src=&quot;/blog/images/ram_cost.png&quot; width=&quot;370&quot; title=&quot;The cost of RAM in the past decades&quot;&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Database" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/"/>
+    
+      <category term="Redis" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/Redis/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>How Query Optimizer Works in RDBMS</title>
+    <link href="https://yunpengn.github.io/blog/2019/02/07/how-query-optimizer-works/"/>
+    <id>https://yunpengn.github.io/blog/2019/02/07/how-query-optimizer-works/</id>
+    <published>2019-02-06T16:09:39.000Z</published>
+    <updated>2019-07-13T09:42:23.413Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;In a previous &lt;a href=&quot;/blog/2019/01/05/relational-operators/&quot; title=&quot;post&quot;&gt;post&lt;/a&gt;, we discussed how the various relational operators are implemented in relational database systems. If you have read that post, you probably still remember that there are a few alternative implementations for every operator. Thus, how should RDBMS determine which algorithm (or implementation) to use?&lt;/p&gt;&lt;p&gt;Obviously, to optimize the performance for any query, RDBMS has to select the correct the algorithm based on the query. It would not be desirable to always use the same algorithm. Also, SQL is a declarative language &lt;em&gt;(i.e., as a programmer we only declare what we want to do with the language, not tell how the language should accomplish the task)&lt;/em&gt;. Therefore, it would be an anti-pattern if the user of the database system needs to specify which algorithm to use when writing the query. Instead, the correct approach would be that the user would treat the entire system as a blackbox. The end-user should not care about which algorithm is picked but expect the performance optimization is guaranteed.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Database" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/"/>
+    
+      <category term="SQL" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/SQL/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Understanding How is Data Stored in RDBMS</title>
+    <link href="https://yunpengn.github.io/blog/2019/01/20/understanding-database-storage/"/>
+    <id>https://yunpengn.github.io/blog/2019/01/20/understanding-database-storage/</id>
+    <published>2019-01-20T13:16:19.000Z</published>
+    <updated>2019-07-13T09:42:23.414Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;We all know that DBMS &lt;em&gt;(database management system)&lt;/em&gt; is used to store (a massive amount of) data. However, have you ever wondered how is data stored in DBMS? In this post, we will focus on data storage in RDBMS, the most traditional relational database systems.&lt;/p&gt;&lt;h2 id=&quot;Physical-Storage&quot;&gt;&lt;a href=&quot;#Physical-Storage&quot; class=&quot;headerlink&quot; title=&quot;Physical Storage&quot;&gt;&lt;/a&gt;Physical Storage&lt;/h2&gt;&lt;p&gt;Data can be stored in many different kinds of medium or devices, from the fastest but costy registers to the slow but cheap hard drives, or even magnetic tapes. Nowadays, &lt;a href=&quot;https://en.wikipedia.org/wiki/Infrastructure_as_a_service&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;IaaS&lt;/a&gt; providers such as &lt;a href=&quot;https://aws.amazon.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;AWS&lt;/a&gt; even provides services such as &lt;a href=&quot;https://aws.amazon.com/glacier/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;S3 Glacier&lt;/a&gt; as a low-cost archiving storage solution. The diagram below shows the memory hierarchy of common devices.&lt;/p&gt;&lt;img src=&quot;/blog/images/memory_hierarchy.jpg&quot; width=&quot;500&quot; title=&quot;Memory hierarchy&quot;&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Database" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/"/>
+    
+      <category term="SQL" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/SQL/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Evaluation &amp; Implementation of Relational Operators</title>
+    <link href="https://yunpengn.github.io/blog/2019/01/05/relational-operators/"/>
+    <id>https://yunpengn.github.io/blog/2019/01/05/relational-operators/</id>
+    <published>2019-01-05T14:10:55.000Z</published>
+    <updated>2019-07-13T09:42:23.414Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;This post talks about some basic implementation of relational operators in traditional RDBMS (relational database management systems). It was based on Chapter 14 of the &lt;a href=&quot;http://pages.cs.wisc.edu/~dbbook/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;textbook&lt;/a&gt; by &lt;a href=&quot;http://pages.cs.wisc.edu/~raghu&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Raghu Ramakrishnan&lt;/a&gt; and &lt;a href=&quot;http://www.cs.cornell.edu/johannes&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Johannes Gehrke&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Below we will talk about the classical evaluation &amp;amp; implementation of relational operators one-by-one, namely:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;#Selection&quot;&gt;Selection&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#Projection&quot;&gt;Projection&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#Join&quot;&gt;Join&lt;/a&gt;, cross product&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#Set-Operations&quot;&gt;Set operations&lt;/a&gt; (intersection, union, difference)&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;#Aggregation&quot;&gt;Grouping &amp;amp; aggregation&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Database" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/"/>
+    
+      <category term="SQL" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/SQL/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Literature Review on Join Reorderability</title>
+    <link href="https://yunpengn.github.io/blog/2018/12/22/literature-review-join-reorder/"/>
+    <id>https://yunpengn.github.io/blog/2018/12/22/literature-review-join-reorder/</id>
+    <published>2018-12-22T08:24:11.000Z</published>
+    <updated>2019-07-13T09:42:23.413Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Recently, I was looking at some research papers on the join reorderability. To start with, let’s understand what do we mean by &lt;em&gt;“join reorderability”&lt;/em&gt; and why it is important.&lt;/p&gt;&lt;h2 id=&quot;Background-Knowledge&quot;&gt;&lt;a href=&quot;#Background-Knowledge&quot; class=&quot;headerlink&quot; title=&quot;Background Knowledge&quot;&gt;&lt;/a&gt;Background Knowledge&lt;/h2&gt;&lt;p&gt;Here, we are looking at a query optimization problem, specifically join optimization. As mentioned by &lt;a href=&quot;http://www.benjaminnevarez.com/2010/06/optimizing-join-orders/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Benjamin Nevarez&lt;/a&gt;, there are two factors in join optimization: &lt;strong&gt;selection of a join order&lt;/strong&gt; and &lt;strong&gt;choice of a join algorithm&lt;/strong&gt;.&lt;/p&gt;&lt;p&gt;As stated by Tan Kian Lee’s &lt;a href=&quot;https://www.comp.nus.edu.sg/~tankl/cs3223/slides/opr.pdf&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;lecture notes&lt;/a&gt;, common join algorithms include iteration-based nested loop join &lt;em&gt;(tuple-based, page-based, block-based)&lt;/em&gt;, sort-based merge join and partition-based hash join. We should consider a few factors when deciding which algorithm to use: 1) types of the join predicate (equality predicate v.s. non-equality predicate); 2) sizes of the left v.s. right join operand; 3) available buffer space &amp;amp; access methods.&lt;/p&gt;&lt;p&gt;For a query attempting to join &lt;code&gt;n&lt;/code&gt; tables together, we need &lt;code&gt;n - 1&lt;/code&gt; individual joins. Apart from the join algorithm applied to each join, we have to decide in which order these &lt;code&gt;n&lt;/code&gt; tables should be joined. We could represent such join queries on multiple tables as a tree. The tree could have different shapes, such as left-deep tree, right-deep tree and bushy tree. The 3 types of trees are compared below on an example of joining 4 tables together.&lt;/p&gt;&lt;img src=&quot;/blog/images/join_order_tree.jpg&quot; width=&quot;450&quot; title=&quot;3 types of join trees&quot;&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Database" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/"/>
+    
+      <category term="SQL" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/SQL/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Redis Cluster &amp; Common Partition Techniques in Distributed Cache</title>
+    <link href="https://yunpengn.github.io/blog/2018/07/27/redis-cluster-partition/"/>
+    <id>https://yunpengn.github.io/blog/2018/07/27/redis-cluster-partition/</id>
+    <published>2018-07-27T05:09:53.000Z</published>
+    <updated>2019-07-13T09:42:23.413Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;In this post, I will discuss a few common partition techniques in distributed cache. Especially, I will elaborate on my understanding on the use of &lt;a href=&quot;https://redis.io/topics/cluster-tutorial&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Redis Cluster&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;Please understand that at the time of writing, the latest version of Redis is &lt;a href=&quot;http://download.redis.io/releases/redis-4.0.10.tar.gz&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;4.0.10&lt;/a&gt;. Many articles on the same topic have a different idea from this post. This is mainly because, those articles are probably outdated. In particular, they may refer to the Redis Cluster implementation in Redis 3. Redis Cluster has been improved a lot since Redis 4.&lt;/p&gt;&lt;p&gt;&lt;em&gt;(This article was based on part of my project report. You may want to take a look at the full report &lt;a href=&quot;https://dl.comp.nus.edu.sg/handle/1900.100/7123&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;here&lt;/a&gt;. You may need a valid account to gain access to NUS SoC Digital Library.)&lt;/em&gt;&lt;/p&gt;&lt;h2 id=&quot;Common-Partition-Techniques&quot;&gt;&lt;a href=&quot;#Common-Partition-Techniques&quot; class=&quot;headerlink&quot; title=&quot;Common Partition Techniques&quot;&gt;&lt;/a&gt;Common Partition Techniques&lt;/h2&gt;&lt;p&gt;Here, we refer to &lt;strong&gt;horizontal partitioning&lt;/strong&gt;, which is also known as &lt;strong&gt;data sharding&lt;/strong&gt;. Traditionally, there are 3 approaches to achieve data partitioning, namely, server-side partitioning, cluster proxy, and client-side partitioning.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Database" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/"/>
+    
+      <category term="Redis" scheme="https://yunpengn.github.io/blog/categories/Technical/Database/Redis/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>To Select the Correct Technical Stack for Web</title>
+    <link href="https://yunpengn.github.io/blog/2018/04/29/select-web-tech-stack/"/>
+    <id>https://yunpengn.github.io/blog/2018/04/29/select-web-tech-stack/</id>
+    <published>2018-04-29T14:04:05.000Z</published>
+    <updated>2019-07-13T09:42:23.414Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;When I planned to upgrade the &lt;a href=&quot;https://github.com/yunpengn/CS1101S-DG-Website&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;CS1101S DG Website&lt;/a&gt; project, selection of the technical stack became a big headache. The current decision is&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Backend: &lt;a href=&quot;https://spring.io/projects/spring-boot&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Spring Boot 2.x&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Frontend: &lt;a href=&quot;https://vuejs.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Vue.js 2.x&lt;/a&gt; + &lt;a href=&quot;http://getbootstrap.com&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Bootstrap 4.x&lt;/a&gt; (integrated with Vue.js using &lt;a href=&quot;https://bootstrap-vue.js.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Bootstrap Vue&lt;/a&gt;)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;In this post, I would like to present the decision-making process.&lt;/p&gt;&lt;h2 id=&quot;What-are-the-possible-languages-frameworks&quot;&gt;&lt;a href=&quot;#What-are-the-possible-languages-frameworks&quot; class=&quot;headerlink&quot; title=&quot;What are the possible languages, frameworks?&quot;&gt;&lt;/a&gt;What are the possible languages, frameworks?&lt;/h2&gt;&lt;p&gt;Certainly, there are many different choices. Let’s compare them as follows. To select a backend framework, it is essentially to select a server-side programming language.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;strong&gt;Java &lt;em&gt;(current choice)&lt;/em&gt;&lt;/strong&gt;: good for scalability and maintainability, used in many enterprise applications. As a relatively &lt;em&gt;old&lt;/em&gt; language, its robustness is no doubt.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;PHP&lt;/strong&gt;: also a traditional choice. However, its performance is not as good as Java (since Java is a fully compiled language, PHP is parsed into opcode and sent to &lt;a href=&quot;http://www.zend.com/en/resources/php-7&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Zend Engine&lt;/a&gt;).&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Ruby&lt;/strong&gt;: a dynamic-typed language, which becomes famous due to Ruby on Rails. You can write less code to achieve more functionalities. However, its performance is even worse and its development environment is also not trivial to set up.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Node.js&lt;/strong&gt;: a newer technology than others. It provides a unified language for both frontend and backend development. It is fast since it leverages JavaScript event loop to create non-blocking I/O.&lt;/li&gt;&lt;li&gt;&lt;strong&gt;Python&lt;/strong&gt;: clear and compact syntax that is helpful to developers. Similar to Ruby, it has potential performance issues.&lt;/li&gt;&lt;/ul&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Web" scheme="https://yunpengn.github.io/blog/categories/Technical/Web/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Blogging with Hexo.js</title>
+    <link href="https://yunpengn.github.io/blog/2018/04/11/blog-with-hexo/"/>
+    <id>https://yunpengn.github.io/blog/2018/04/11/blog-with-hexo/</id>
+    <published>2018-04-11T05:00:17.000Z</published>
+    <updated>2019-07-13T09:42:23.412Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;As you may already know, this blog is built using &lt;a href=&quot;https://hexo.io&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo.js&lt;/a&gt; with theme &lt;a href=&quot;https://github.com/theme-next/hexo-theme-next&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Next&lt;/a&gt;. In this post, I will discuss the reasons why I select this static site generator and this theme.&lt;/p&gt;&lt;h2 id=&quot;Why-do-I-select-Hexo-js&quot;&gt;&lt;a href=&quot;#Why-do-I-select-Hexo-js&quot; class=&quot;headerlink&quot; title=&quot;Why do I select Hexo.js?&quot;&gt;&lt;/a&gt;Why do I select Hexo.js?&lt;/h2&gt;&lt;ul&gt;&lt;li&gt;I want a blog website that only consists of static webpages. Thus, I cannot use any content management system (CMS) with dynamic pages, like &lt;a href=&quot;https://wordpress.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;WordPress&lt;/a&gt; and &lt;a href=&quot;https://www.drupal.org/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Drupal&lt;/a&gt;.&lt;ul&gt;&lt;li&gt;This provides me with more options to host it. For instance, &lt;a href=&quot;https://pages.github.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub Pages&lt;/a&gt; only supports static webpages.&lt;/li&gt;&lt;li&gt;Static webpages are generally faster. They do not need any server-side pre-rendering.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;li&gt;It may be a waste of time to write raw HTML, CSS &amp;amp; JavaScript code for every page of the blog. Much of the code can be reused. Thus, I need a framework to help me generate the static webpages.&lt;/li&gt;&lt;li&gt;I want to develop in both Windows and Linux-based environment. This means some programming languages like Ruby may be troublesome. Thus, I will not choose engines like &lt;a href=&quot;https://jekyllrb.com/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Jekyll&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;The body of my blog posts should not be in plain text. I need basic styling of the text. Also, I may insert code snippets to technical posts sometimes.&lt;ul&gt;&lt;li&gt;Therefore, the framework had better support &lt;a href=&quot;https://en.wikipedia.org/wiki/Markdown&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Markdown&lt;/a&gt; and/or &lt;a href=&quot;http://www.methods.co.nz/asciidoc/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;AsciiDoc&lt;/a&gt;.&lt;/li&gt;&lt;li&gt;I know how to use &lt;a href=&quot;https://www.latex-project.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;LaTeX&lt;/a&gt;. My slides for my CS1101S classes are all typed in Latex with &lt;a href=&quot;https://ctan.org/pkg/beamer&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Beamer&lt;/a&gt; package. However, although LaTeX is very powerful, I have to say its syntax is way too complex.&lt;ul&gt;&lt;li&gt;In fact, the &lt;a href=&quot;https://github.com/theme-next/hexo-theme-next&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Next&lt;/a&gt; theme also supports math equation rendering by either &lt;a href=&quot;https://www.mathjax.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;MathJax&lt;/a&gt; or &lt;a href=&quot;https://katex.org&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Katex&lt;/a&gt;.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Given all the factors mentioned above, I choose &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo.js&lt;/a&gt; in the end.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Technical" scheme="https://yunpengn.github.io/blog/categories/Technical/"/>
+    
+      <category term="Blog" scheme="https://yunpengn.github.io/blog/categories/Technical/Blog/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="https://yunpengn.github.io/blog/2017/10/13/hello-world/"/>
+    <id>https://yunpengn.github.io/blog/2017/10/13/hello-world/</id>
+    <published>2017-10-13T04:40:58.000Z</published>
+    <updated>2019-07-13T09:42:23.412Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Miscellaneous" scheme="https://yunpengn.github.io/blog/categories/Miscellaneous/"/>
+    
+    
+  </entry>
+  
+</feed>
