@@ -14,7 +14,7 @@
     "hexo-generator-tag": "^0.2.0",
     "hexo-renderer-marked": "^1.0.1",
     "hexo-renderer-stylus": "^0.3.3",
-    "hexo-server": "^0.3.3"
+    "hexo-server": "^1.0.0"
   },
   "devDependencies": {
     "hexo-all-minifier": "^0.5.3",
