@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "hexo-all-minifier": "^0.5.3",
-    "hexo-cli": "^3.0.0",
+    "hexo-cli": "^3.1.0",
     "hexo-deployer-git": "^2.0.0"
   },
   "hexo": {
