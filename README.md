@@ -60,7 +60,7 @@ Currently, this blog is being deployed to two environments concurrently, [produc
 We use the [Git deployer plugin](https://github.com/hexojs/hexo-deployer-git) for Hexo to deploy the site to the [`gh-pages` branch](https://github.com/yunpengn/blog/tree/gh-pages), which is then picked up by GitHub Pages automatically.
 
 - You should have followed the [section above](#development) to set up the local development environment.
-- Check the settings in `_config.yml` is correct (see Hexo's [documentation](https://hexo.io/docs/deployment#Git) for more details):
+- Check the settings in `_config.yml` is correct (see Hexo's [documentation](https://hexo.io/docs/one-command-deployment#Git) for more details):
 ```yaml
 deploy:
   type: git
