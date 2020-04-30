@@ -7,7 +7,7 @@
 This repository is meant for [Yunpeng](https://yunpengn.github.io/)'s personal blog website. It is proudly powered by [Hexo.js](https://hexo.io/). In a previous [blog](https://yunpengn.github.io/blog/2018/04/11/blog-with-hexo/), I shared the reasons why I chose to blog with Hexo.js.
 
 - Production Site: [https://yunpengn.github.io/blog/](https://yunpengn.github.io/blog/)
-- Staging Site: [https://yunpengn-blog.netlify.com/](https://yunpengn-blog.netlify.com/)
+- Staging Site: [https://yunpengn-blog.netlify.app/](https://yunpengn-blog.netlify.app/)
 
 ## Development
 
