@@ -150,7 +150,7 @@ This new method can be considered as a variant of the [write behind](#Write-Behi
 
 In conclusion, none of the approaches above can guarantee _strong consistency_. Strong consistency may not be a realistic requirement for the consistency between Redis and MySQL as well. To guarantee strong consistency, we have to implement ACID on all operations. Doing so will degrade the performance of the cache layer, which will defeat our objectives of using Redis cache.
 
-However, all the approaches above have attempted to achieve _eventual consistency_, of which the last one (introduced by [canal](https://github.com/alibaba/canal)) being the best. Some of the algorithms above are improvements to some others. To describe their hierarchy, the following tree diagram is drawn. In the diagram, each node would in general achieve better consistency that its children (if any).
+However, all the approaches above have attempted to achieve _eventual consistency_, of which the last one (introduced by [canal](https://github.com/alibaba/canal)) being the best. Some of the algorithms above are improvements to some others. To describe their hierarchy, the following tree diagram is drawn. In the diagram, each node would in general achieve better consistency than its children (if any).
 
 {% img /images/redis_mysql_hierarchy.png 600 "Hierarchy Diagram of Consistency between MySQL and Redis" %}
 
