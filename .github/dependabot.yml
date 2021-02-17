@@ -1,0 +1,21 @@
+version: 2
+updates:
+  # Maintain dependencies for GitHub Actions
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "yunpengn"
+    labels:
+      - "dependencies"
+
+  # Maintain dependencies for PIP
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    reviewers:
+      - "yunpengn"
+    labels:
+      - "dependencies"
