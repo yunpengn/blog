@@ -32,7 +32,7 @@ jobs:
           submodules: true
       # See https://github.com/actions/setup-node
       - name: Setup Node ${{ matrix.node }}
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.1.4
         with:
           node-version: ${{ matrix.node }}
       # See https://github.com/actions/cache
