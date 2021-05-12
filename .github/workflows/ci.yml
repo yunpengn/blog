@@ -62,7 +62,7 @@ jobs:
           submodules: true
       # See https://github.com/actions/setup-ruby
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: 2.7
       # See https://github.com/actions/setup-ruby
