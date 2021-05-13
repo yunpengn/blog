@@ -26,7 +26,7 @@ jobs:
     steps:
       # See https://github.com/actions/checkout
       - name: Download the repository to $GITHUB_WORKSPACE
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 50
           submodules: true
@@ -56,13 +56,13 @@ jobs:
     steps:
       # See https://github.com/actions/checkout
       - name: Download the repository to $GITHUB_WORKSPACE
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2.3.4
         with:
           fetch-depth: 50
           submodules: true
       # See https://github.com/actions/setup-ruby
       - name: Setup Ruby
-        uses: actions/setup-ruby@v1
+        uses: actions/setup-ruby@v1.1.3
         with:
           ruby-version: 2.7
       # See https://github.com/actions/setup-ruby
