@@ -26,7 +26,7 @@ jobs:
     steps:
       # See https://github.com/actions/checkout
       - name: Download the repository to $GITHUB_WORKSPACE
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           fetch-depth: 50
           submodules: true
@@ -56,7 +56,7 @@ jobs:
     steps:
       # See https://github.com/actions/checkout
       - name: Download the repository to $GITHUB_WORKSPACE
-        uses: actions/checkout@v2.3.4
+        uses: actions/checkout@v2.3.5
         with:
           fetch-depth: 50
           submodules: true
