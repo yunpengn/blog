@@ -5,7 +5,7 @@
     "url": "https://yunpengn.github.io/"
   },
   "dependencies": {
-    "hexo": "^5.4.0",
+    "hexo": "^6.0.0",
     "hexo-generator-archive": "^1.0.0",
     "hexo-generator-category": "^1.0.0",
     "hexo-generator-feed": "^3.0.0",
